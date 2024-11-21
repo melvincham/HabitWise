@@ -36,18 +36,18 @@ namespace HabitWise.Services
             }
         }
 
-        //public async Task<FirebaseAuth> SignUpAsync(string email, string password)
-        //{
-        //    try
-        //    {
-        //        return await _authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Handle errors (e.g., account already exists)
-        //        throw new Exception("Login failed", ex);
-        //    }
-        //}
+        public async Task<UserCredential> SignInAsync(string email, string password)
+        {
+            try
+            {
+                return await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
+            }
+            catch (Exception ex)
+            {
+                // Handle errors (e.g., account already exists)
+                throw new Exception("Login failed", ex);
+            }
+        }
 
     }
 }
