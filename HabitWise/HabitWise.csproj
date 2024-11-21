@@ -60,16 +60,35 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\iOS\GoogleService-Info.plist" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Platforms\iOS\GoogleService-Info.plist">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+		<PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Models\" />
+	  <Folder Include="Helpers\" />
 	  <Folder Include="Data\" />
-	  <Folder Include="Services\" />
-	  <Folder Include="Pages\" />
-	  <Folder Include="PageModels\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\SignInPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\SignUpPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

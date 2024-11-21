@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "801199754358",
+    "project_id": "habitwise-8030b",
+    "storage_bucket": "habitwise-8030b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801199754358:android:aec696212842567c4ba357",
+        "android_client_info": {
+          "package_name": "com.habitwise.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE60AG4IAg0tN3vNE9w5Ca5ghjeM4SZWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

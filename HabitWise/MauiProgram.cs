@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using HabitWise.Services;
+using Microsoft.Extensions.Logging;
 
 namespace HabitWise
 {
@@ -9,6 +11,7 @@ namespace HabitWise
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -18,7 +21,7 @@ namespace HabitWise
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
+            builder.Services.AddSingleton<FirebaseAuthService>();
             return builder.Build();
         }
     }
