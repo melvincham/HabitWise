@@ -24,14 +24,37 @@ namespace HabitWise.PageModels
         [ObservableProperty]
         private SignUpModel _signUpModel;
 
-        [RelayCommand]
+        [ObservableProperty]
+        private string _errorMessage;
+
+        [RelayCommand(CanExecute = nameof(CanSignUp))]
         private async Task SignUp()
-        { 
-            var  result = await _firebaseAuthService.SignUpAsync(_signUpModel.Email, _signUpModel.Password, _signUpModel.Username);
-            if (!string.IsNullOrWhiteSpace(result?.User?.Info.Email)) 
+        {
+            await RunWithBusyIndicator(async () =>
             {
-                await Shell.Current.GoToAsync($"{nameof(SignInPage)}", true);
-            } 
+                try
+                {
+                    var result = await _firebaseAuthService.SignUpAsync(_signUpModel.Email, _signUpModel.Password, _signUpModel.Username);
+                    if (!string.IsNullOrWhiteSpace(result?.User?.Info.Email))
+                    {
+                        await Shell.Current.GoToAsync($"{nameof(SignInPage)}", true);
+                    }
+                    else
+                    {
+                        ErrorMessage = "Sign-up failed. UserCredential returned null.";
+                    }
+                }
+                catch (Exception ex) 
+                {
+                    ErrorMessage = ex.Message;
+                }
+            });
+            
+        }
+
+        private bool CanSignUp()
+        {
+            return !string.IsNullOrWhiteSpace(_signUpModel?.Email) && !string.IsNullOrWhiteSpace(_signUpModel?.Password) && !string.IsNullOrWhiteSpace(_signUpModel?.Username);
         }
 
         [RelayCommand]

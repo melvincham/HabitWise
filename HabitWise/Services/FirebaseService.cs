@@ -22,6 +22,9 @@ namespace HabitWise.Services
             });
         }
 
+        /// <summary>
+        /// Signs up a new user with email, password, and optional username.
+        /// </summary>
         public async Task<UserCredential> SignUpAsync(string email, string password, string username = "")
         {
             try
@@ -36,11 +39,19 @@ namespace HabitWise.Services
             }
         }
 
+        /// <summary>
+        /// Signs in an existing user with email and password.
+        /// </summary>
         public async Task<UserCredential> SignInAsync(string email, string password)
         {
             try
             {
                 return await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
+            }
+            catch (FirebaseAuthException ex)
+            {
+                // Handle Firebase-specific exceptions
+                throw new Exception($"Login failed: {ex.Reason}", ex);
             }
             catch (Exception ex)
             {
