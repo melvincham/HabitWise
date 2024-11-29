@@ -29,9 +29,12 @@ namespace HabitWise.PageModels
         {
             try
             {
-                IsBusy = true;
-                await action();
-            }
+                if (!IsBusy)
+                {
+                    IsBusy = true;
+                    await action();
+                }
+                }
             finally
             {
                 IsBusy = false;

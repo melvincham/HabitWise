@@ -4,12 +4,22 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:HabitWise"
+    xmlns:pages="clr-namespace:HabitWise.Pages"
     Shell.FlyoutBehavior="Flyout"
     Title="HabitWise">
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate pages:MainPage}"
         Route="MainPage" />
-
+    <ShellContent 
+        Title="Sign In" 
+        Route="SignInPage" 
+        ContentTemplate="{DataTemplate pages:SignInPage}" 
+        Shell.FlyoutBehavior="Disabled" />
+    <ShellContent 
+        Title="Sign Up" 
+        Route="SignUpPage" 
+        ContentTemplate="{DataTemplate pages:SignUpPage}" 
+        Shell.FlyoutBehavior="Disabled"/>
 </Shell>

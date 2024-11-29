@@ -11,6 +11,7 @@ namespace HabitWise.Services
     public class FirebaseAuthService
     {
         private readonly FirebaseAuthClient _firebaseAuthClient;
+        public UserCredential? userCredential;
 
         public FirebaseAuthService()
         { 
@@ -25,38 +26,54 @@ namespace HabitWise.Services
         /// <summary>
         /// Signs up a new user with email, password, and optional username.
         /// </summary>
-        public async Task<UserCredential> SignUpAsync(string email, string password, string username = "")
+        public virtual async Task<bool> SignUpAsync(string email, string password, string username = "")
         {
             try
             {
-                return await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync(email, password, username);
+                userCredential =  await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync(email, password, username);
+                return userCredential?.User?.Info.Email != null;
+            }
+            catch (FirebaseAuthException ex)
+            {
+                switch (ex.Reason)
+                { 
+                    case AuthErrorReason.EmailExists:
+                        throw new Exception("An account with this email already exists");
+                    default:
+                        throw new Exception("An error occurred during sign-up.");
+                }
             }
             catch (Exception ex)
             {
-                // Handle any errors (e.g., invalid credentials)
                 throw new Exception("Sign-up failed", ex);
-                
             }
         }
 
         /// <summary>
         /// Signs in an existing user with email and password.
         /// </summary>
-        public async Task<UserCredential> SignInAsync(string email, string password)
+        public virtual async Task<bool> SignInAsync(string email, string password)
         {
             try
             {
-                return await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
+                userCredential = await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
+                return userCredential?.User?.Info.Email != null;
             }
             catch (FirebaseAuthException ex)
             {
-                // Handle Firebase-specific exceptions
-                throw new Exception($"Login failed: {ex.Reason}", ex);
+                switch (ex.Reason)
+                {
+                    case AuthErrorReason.WrongPassword:
+                        throw new Exception("The password is incorrect.");
+                    case AuthErrorReason.UnknownEmailAddress:
+                        throw new Exception("No account exists with this email.");
+                    default:
+                        throw new Exception("An error occurred during sign-in.");
+                }
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
-                // Handle errors (e.g., account already exists)
-                throw new Exception("Login failed", ex);
+                throw new Exception("An error occurred during sign-in.");
             }
         }
 

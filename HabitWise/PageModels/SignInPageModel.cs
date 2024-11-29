@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HabitWise.Models;
+using HabitWise.Pages;
 using HabitWise.Services;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,12 @@ namespace HabitWise.PageModels
     public partial class SignInPageModel : BasePageModel
     {
         private FirebaseAuthService _firebaseAuthService;
-        public SignInPageModel(FirebaseAuthService firebaseAuthService) 
+        private INavigationService _navigationService;
+        public SignInPageModel(FirebaseAuthService firebaseAuthService, INavigationService navigationService) 
         {
             _firebaseAuthService = firebaseAuthService;
+            _navigationService = navigationService;
+
         }
 
         [ObservableProperty]
@@ -31,10 +35,11 @@ namespace HabitWise.PageModels
             {
                 try
                 {
-                    var userCredential = await _firebaseAuthService.SignInAsync(_signInModel.Email, _signInModel.Password);
-                    if (!string.IsNullOrWhiteSpace(userCredential?.User?.Info.Email))
+                    var isSignedIn = await _firebaseAuthService.SignInAsync(_signInModel.Email, _signInModel.Password);
+                    if (isSignedIn)
                     {
-                        await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                        ErrorMessage = "Login successful!";
+                        _navigationService.GoToAsync($"//{nameof(MainPage)}"); ;
                     }
                     else {
                         ErrorMessage = "Sign-in failed. UserCredential returned null.";

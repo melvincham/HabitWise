@@ -15,17 +15,19 @@ namespace HabitWise.PageModels
     public partial class SignUpPageModel : BasePageModel
     {
         private FirebaseAuthService _firebaseAuthService;
+        private INavigationService _navigationService; 
 
-        public SignUpPageModel(FirebaseAuthService firebaseAuthService) 
+        public SignUpPageModel(FirebaseAuthService firebaseAuthService, INavigationService navigationService) 
         {
             _firebaseAuthService = firebaseAuthService;
+            _navigationService = navigationService; 
         }
 
         [ObservableProperty]
-        private SignUpModel _signUpModel;
+        SignUpModel _signUpModel = new();
 
         [ObservableProperty]
-        private string _errorMessage;
+        private string? _errorMessage;
 
         [RelayCommand(CanExecute = nameof(CanSignUp))]
         private async Task SignUp()
@@ -34,10 +36,11 @@ namespace HabitWise.PageModels
             {
                 try
                 {
-                    var result = await _firebaseAuthService.SignUpAsync(_signUpModel.Email, _signUpModel.Password, _signUpModel.Username);
-                    if (!string.IsNullOrWhiteSpace(result?.User?.Info.Email))
+                    var isSignedIn = await _firebaseAuthService.SignUpAsync(_signUpModel.Email, _signUpModel.Password, _signUpModel.Username);
+                    if (isSignedIn)
                     {
-                        await Shell.Current.GoToAsync($"{nameof(SignInPage)}", true);
+                        ErrorMessage = "Sign-up successful!";
+                        _navigationService.GoToAsync($"//{nameof(MainPage)}");   
                     }
                     else
                     {

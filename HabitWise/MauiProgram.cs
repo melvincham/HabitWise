@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using HabitWise.PageModels;
+using HabitWise.Pages;
 using HabitWise.Services;
 using Microsoft.Extensions.Logging;
 
@@ -21,7 +23,20 @@ namespace HabitWise
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            // Register services
             builder.Services.AddSingleton<FirebaseAuthService>();
+            builder.Services.AddSingleton<NavigationService>();
+
+            // Register PageModels
+            builder.Services.AddTransient<SignInPageModel>();
+            builder.Services.AddTransient<SignUpPageModel>();
+
+            //Register Pages
+            builder.Services.AddTransient<SignInPage>();
+            builder.Services.AddTransient<SignUpPage>();
+            builder.Services.AddTransient<MainPage>();
+
+
             return builder.Build();
         }
     }
