@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Fonts;
 using HabitWise.PageModels;
 using HabitWise.Pages;
 using HabitWise.Services;
@@ -16,6 +17,7 @@ namespace HabitWise
                 .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
+                    fonts.AddFont("FluentSystemIcons-Regular.ttf", FluentUI.FontFamily);
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
