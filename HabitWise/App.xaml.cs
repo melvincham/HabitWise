@@ -1,4 +1,5 @@
 ﻿using HabitWise.Resources.Themes;
+using System.Reflection;
 
 namespace HabitWise
 {
@@ -6,8 +7,15 @@ namespace HabitWise
     {
         public App()
         {
-            InitializeComponent();
-
+            try
+            {
+                InitializeComponent();
+            }
+            catch (TargetInvocationException ex) 
+            {
+                Console.WriteLine(ex.InnerException?.Message);
+                Console.WriteLine(ex.InnerException?.StackTrace);
+            }
             ApplyTheme(AppInfo.RequestedTheme == AppTheme.Dark ? "DarkTheme" : "LightTheme");
         }
 
@@ -18,11 +26,6 @@ namespace HabitWise
 
         public void ApplyTheme(string themeKey)
         {
-            Resources.MergedDictionaries.Clear();
-
-            Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("Resources/Styles/Colors.xaml") });
-            Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("Resources/Styles/Styles.xaml") });
-
             if (themeKey == "DarkTheme")
                 Resources.MergedDictionaries.Add(new DarkTheme());
             else
