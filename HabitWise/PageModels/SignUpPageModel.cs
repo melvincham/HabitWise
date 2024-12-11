@@ -15,16 +15,16 @@ namespace HabitWise.PageModels
     public partial class SignUpPageModel : BasePageModel
     {
         private FirebaseAuthService _firebaseAuthService;
-        private INavigationService _navigationService; 
+        private INavigationService _navigationService;
+        [ObservableProperty]
+        private SignUpModel signUpModel;
 
         public SignUpPageModel(FirebaseAuthService firebaseAuthService, INavigationService navigationService) 
         {
             _firebaseAuthService = firebaseAuthService;
             _navigationService = navigationService; 
+            SignUpModel = new();
         }
-
-        [ObservableProperty]
-        SignUpModel _signUpModel = new();
 
         [ObservableProperty]
         private string? _errorMessage;
@@ -36,7 +36,8 @@ namespace HabitWise.PageModels
             {
                 try
                 {
-                    var isSignedIn = await _firebaseAuthService.SignUpAsync(_signUpModel.Email, _signUpModel.Password, _signUpModel.Username);
+                    var isSignedIn = await _firebaseAuthService.SignUpAsync(SignUpModel.Email, SignUpModel.Password, SignUpModel.Username);
+                   
                     if (isSignedIn)
                     {
                         ErrorMessage = "Sign-up successful!";
@@ -57,13 +58,15 @@ namespace HabitWise.PageModels
 
         private bool CanSignUp()
         {
-            return !string.IsNullOrWhiteSpace(_signUpModel?.Email) && !string.IsNullOrWhiteSpace(_signUpModel?.Password) && !string.IsNullOrWhiteSpace(_signUpModel?.Username);
+            return  !string.IsNullOrWhiteSpace(SignUpModel.Email) && 
+                    !string.IsNullOrWhiteSpace(SignUpModel.Password) && 
+                    !string.IsNullOrWhiteSpace(SignUpModel.Username);
         }
 
         [RelayCommand]
         private async Task NavigateSignIn()
         {
-            await Shell.Current.GoToAsync($"{nameof(SignInPage)}");
+            await Shell.Current.GoToAsync($"///{nameof(SignInPage)}");
         }
     }
 }

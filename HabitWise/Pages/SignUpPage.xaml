@@ -1,12 +1,94 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sfTextInput="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:models="clr-namespace:HabitWise.Models"
+             xmlns:pageModels="clr-namespace:HabitWise.PageModels"
              x:Class="HabitWise.Pages.SignUpPage"
-             Title="SignUpPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:DataType="pageModels:SignUpPageModel" >
+    <Grid
+        Margin="25,5"
+        RowDefinitions=" *, *, 3*, 0.5*, Auto, 1.5*, Auto, *">
+
+        <Image x:Name="LogoImage" 
+               Source="logo.png"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand"
+               Aspect="Fill"
+        />
+        <VerticalStackLayout Grid.Row="2">
+            <sfTextInput:SfTextInputLayout  
+                Hint="User Name"
+                ContainerType="Outlined"
+                ContainerBackground="Transparent"
+                OutlineCornerRadius="15"
+                Stroke="#00AFA0">   
+            <Entry 
+                FontSize="16" 
+                TextColor="#1b4332"
+                Text="{Binding SignUpModel.Username}"/>    
+            <sfTextInput:SfTextInputLayout.LeadingView>
+                    <Label
+                        Text="&#x1F5D3;">
+                    </Label>
+                </sfTextInput:SfTextInputLayout.LeadingView>
+            </sfTextInput:SfTextInputLayout>
+            <sfTextInput:SfTextInputLayout  
+                Hint="Email address"
+                ContainerType="Outlined"
+                ContainerBackground="Transparent"
+                OutlineCornerRadius="15"
+                Stroke="#00AFA0">
+                <Entry 
+                    FontSize="16" 
+                    TextColor="#1b4332"
+                    Text="{Binding SignUpModel.Email}"/>
+                <sfTextInput:SfTextInputLayout.LeadingView>
+                    <Label
+                        Text="&#x1F5D3;">
+                    </Label>
+                </sfTextInput:SfTextInputLayout.LeadingView>
+            </sfTextInput:SfTextInputLayout>
+            <sfTextInput:SfTextInputLayout  
+                Hint="Password" 
+                ContainerType="Outlined"
+                ContainerBackground="Transparent"
+                OutlineCornerRadius="15"
+                Stroke="#00AFA0"
+                EnablePasswordVisibilityToggle="true">
+                <Entry  FontSize="16" 
+                        TextColor="#1b4332"
+                        Text="{Binding SignUpModel.Password}"/>
+                <sfTextInput:SfTextInputLayout.LeadingView>
+                    <Label
+                        Text="&#x1F5D3;">
+                    </Label>
+                </sfTextInput:SfTextInputLayout.LeadingView>
+            </sfTextInput:SfTextInputLayout>
+        </VerticalStackLayout>
+
+        <Button 
+            Grid.Row="4"
+            Text="Get started. it's free"
+            FontSize="20"
+            CornerRadius="34"
+            Command="{Binding SignUpCommand}"
+        />
+
+        <VerticalStackLayout Grid.Row="6">
+            <Label
+                Text="Do you already have an account?"
+                HorizontalOptions="Center"
+                Margin="10"
+                />
+            <Button 
+                Grid.Row="4"
+                Text="Sign In"
+                FontSize="20"
+                CornerRadius="34"
+                Command="{Binding NavigateSignInCommand}"
+            />
+        </VerticalStackLayout>
+
+    </Grid>
 </ContentPage>

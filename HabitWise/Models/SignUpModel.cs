@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace HabitWise.Models
 {
-    public class SignUpModel
+    public partial class SignUpModel:ObservableObject
     {
-        public string Email { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
+        [ObservableProperty]
+        public string? email;
+        [ObservableProperty]
+        public string? username;
+        [ObservableProperty]
+        public string? password; 
     }
 }
