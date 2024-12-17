@@ -9,7 +9,7 @@ namespace HabitWise.Validations
 {
     public class EmailRule<T>: IValidationRule<T>
     {
-        private readonly Regex _regex = new(@"^([w.-]+)@([w-]+)((.(w){2,3})+)$");
+        private readonly Regex _regex = new(@"^([\w.-]+)@([\w-]+)(\.[a-zA-Z]{2,})$");
 
         public string ValidationMessage { get; set; }
 

@@ -11,25 +11,32 @@ namespace HabitWise
             {
                 InitializeComponent();
             }
-            catch (TargetInvocationException ex) 
+            catch (TargetInvocationException ex)
             {
                 Console.WriteLine(ex.InnerException?.Message);
                 Console.WriteLine(ex.InnerException?.StackTrace);
+                throw;
             }
-            ApplyTheme(AppInfo.RequestedTheme == AppTheme.Dark ? "DarkTheme" : "LightTheme");
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException?.Message);
+                Console.WriteLine(ex.InnerException?.StackTrace);
+                throw;
+            }
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
+            ApplyTheme(AppInfo.RequestedTheme == AppTheme.Dark ? "DarkTheme" : "LightTheme");
             return new Window(new AppShell());
         }
 
         public void ApplyTheme(string themeKey)
         {
             if (themeKey == "DarkTheme")
-                Resources.MergedDictionaries.Add(new DarkTheme());
+                Application.Current?.Resources.MergedDictionaries.Add(new DarkTheme());
             else
-                Resources.MergedDictionaries.Add(new LightTheme());
+                Application.Current?.Resources.MergedDictionaries.Add(new LightTheme());
         }
     }
 }

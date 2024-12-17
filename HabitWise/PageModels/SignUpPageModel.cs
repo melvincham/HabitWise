@@ -9,6 +9,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using HabitWise.Models;
 using CommunityToolkit.Mvvm.Input;
 using HabitWise.Pages;
+using System.ComponentModel;
+using HabitWise.Validations;
 
 namespace HabitWise.PageModels
 {
@@ -16,51 +18,43 @@ namespace HabitWise.PageModels
     {
         private FirebaseAuthService _firebaseAuthService;
         private INavigationService _navigationService;
-        [ObservableProperty]
-        private SignUpModel signUpModel;
 
         public SignUpPageModel(FirebaseAuthService firebaseAuthService, INavigationService navigationService) 
         {
             _firebaseAuthService = firebaseAuthService;
-            _navigationService = navigationService; 
-            SignUpModel = new();
+            _navigationService = navigationService;
         }
 
         [ObservableProperty]
-        private string? _errorMessage;
+        private SignUpModel signUpModel = new();
 
-        [RelayCommand(CanExecute = nameof(CanSignUp))]
+        [RelayCommand]
         private async Task SignUp()
         {
-            await RunWithBusyIndicator(async () =>
+            if (SignUpModel.ValidateAll())
             {
-                try
+                await RunWithBusyIndicator(async () =>
                 {
-                    var isSignedIn = await _firebaseAuthService.SignUpAsync(SignUpModel.Email, SignUpModel.Password, SignUpModel.Username);
-                   
-                    if (isSignedIn)
+                    try
                     {
-                        ErrorMessage = "Sign-up successful!";
-                        _navigationService.GoToAsync($"//{nameof(MainPage)}");   
-                    }
-                    else
-                    {
-                        ErrorMessage = "Sign-up failed. UserCredential returned null.";
-                    }
-                }
-                catch (Exception ex) 
-                {
-                    ErrorMessage = ex.Message;
-                }
-            });
-            
-        }
+                        var isSignedIn = await _firebaseAuthService.SignUpAsync(SignUpModel.Email.Value, SignUpModel.Password.Value, SignUpModel.Username.Value);
 
-        private bool CanSignUp()
-        {
-            return  !string.IsNullOrWhiteSpace(SignUpModel.Email) && 
-                    !string.IsNullOrWhiteSpace(SignUpModel.Password) && 
-                    !string.IsNullOrWhiteSpace(SignUpModel.Username);
+                        if (isSignedIn)
+                        {
+                            ErrorMessage = "Sign-up successful!";
+                            _navigationService.GoToAsync($"//{nameof(MainPage)}");
+                        }
+                        else
+                        {
+                            ErrorMessage = "Sign-up failed. UserCredential returned null.";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorMessage = ex.Message;
+                    }
+                });
+            }
         }
 
         [RelayCommand]

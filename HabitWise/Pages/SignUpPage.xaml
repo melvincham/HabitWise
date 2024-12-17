@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters="clr-namespace:HabitWise.Converters"
+             xmlns:behaviors="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
              xmlns:sfTextInput="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
              xmlns:models="clr-namespace:HabitWise.Models"
              xmlns:pageModels="clr-namespace:HabitWise.PageModels"
              x:Class="HabitWise.Pages.SignUpPage"
              x:DataType="pageModels:SignUpPageModel" >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:ListToStringConverter x:Key="ListToStringConverter" Separator="\n" />
+            <converters:BoolInverterConverter x:Key="BoolInverterConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid
         Margin="25,5"
-        RowDefinitions=" *, *, 3*, 0.5*, Auto, 1.5*, Auto, *">
+        RowDefinitions=" *, *, 4*, 0.5*, Auto, 1.0*, Auto, *">
 
         <Image x:Name="LogoImage" 
                Source="logo.png"
@@ -22,14 +31,17 @@
                 ContainerType="Outlined"
                 ContainerBackground="Transparent"
                 OutlineCornerRadius="15"
-                Stroke="#00AFA0">   
-            <Entry 
-                FontSize="16" 
-                TextColor="#1b4332"
-                Text="{Binding SignUpModel.Username}"/>    
-            <sfTextInput:SfTextInputLayout.LeadingView>
+                Stroke="#00AFA0"
+                HasError="{Binding SignUpModel.Username.IsValid, Converter={StaticResource BoolInverterConverter}}"
+                ErrorText="{Binding SignUpModel.Username.Errors, Converter={StaticResource ListToStringConverter}}">
+                <Entry 
+                    FontSize="16" 
+                    TextColor="#1b4332"
+                    Text="{Binding SignUpModel.Username.Value}">
+                </Entry>
+                <sfTextInput:SfTextInputLayout.LeadingView>
                     <Label
-                        Text="&#x1F5D3;">
+                            Text="&#x1F5D3;">
                     </Label>
                 </sfTextInput:SfTextInputLayout.LeadingView>
             </sfTextInput:SfTextInputLayout>
@@ -38,11 +50,13 @@
                 ContainerType="Outlined"
                 ContainerBackground="Transparent"
                 OutlineCornerRadius="15"
-                Stroke="#00AFA0">
+                Stroke="#00AFA0"
+                HasError="{Binding SignUpModel.Email.IsValid, Converter={StaticResource BoolInverterConverter}}"
+                ErrorText="{Binding SignUpModel.Email.Errors, Converter={StaticResource ListToStringConverter}}">
                 <Entry 
                     FontSize="16" 
                     TextColor="#1b4332"
-                    Text="{Binding SignUpModel.Email}"/>
+                    Text="{Binding SignUpModel.Email.Value}"/>
                 <sfTextInput:SfTextInputLayout.LeadingView>
                     <Label
                         Text="&#x1F5D3;">
@@ -55,10 +69,13 @@
                 ContainerBackground="Transparent"
                 OutlineCornerRadius="15"
                 Stroke="#00AFA0"
-                EnablePasswordVisibilityToggle="true">
+                EnablePasswordVisibilityToggle="true"
+                HelperText="Password must contain at least one uppercase, lowercase, numeric and special character"
+                HasError="{Binding SignUpModel.Password.IsValid, Converter={StaticResource BoolInverterConverter}}"
+                ErrorText="{Binding SignUpModel.Password.Errors, Converter={StaticResource ListToStringConverter}}">
                 <Entry  FontSize="16" 
                         TextColor="#1b4332"
-                        Text="{Binding SignUpModel.Password}"/>
+                        Text="{Binding SignUpModel.Password.Value}"/>
                 <sfTextInput:SfTextInputLayout.LeadingView>
                     <Label
                         Text="&#x1F5D3;">
@@ -72,6 +89,7 @@
             Text="Get started. it's free"
             FontSize="20"
             CornerRadius="34"
+            IsEnabled="{Binding SignUpModel.CanSignUp}"
             Command="{Binding SignUpCommand}"
         />
 
@@ -89,6 +107,5 @@
                 Command="{Binding NavigateSignInCommand}"
             />
         </VerticalStackLayout>
-
     </Grid>
 </ContentPage>

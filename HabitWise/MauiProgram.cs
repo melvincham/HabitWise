@@ -4,6 +4,7 @@ using HabitWise.PageModels;
 using HabitWise.Pages;
 using HabitWise.Services;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Toolkit.Hosting;
 
 namespace HabitWise
 {
@@ -15,6 +16,7 @@ namespace HabitWise
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .ConfigureSyncfusionToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("FluentSystemIcons-Regular.ttf", FluentUI.FontFamily);
@@ -27,7 +29,7 @@ namespace HabitWise
 #endif
             // Register services
             builder.Services.AddSingleton<FirebaseAuthService>();
-            builder.Services.AddSingleton<NavigationService>();
+            builder.Services.AddSingleton<INavigationService, NavigationService>();
 
             // Register PageModels
             builder.Services.AddTransient<SignInPageModel>();
