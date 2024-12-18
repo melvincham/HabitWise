@@ -28,58 +28,34 @@
         <VerticalStackLayout Grid.Row="2">
             <sfTextInput:SfTextInputLayout  
                 Hint="User Name"
-                ContainerType="Outlined"
-                ContainerBackground="Transparent"
-                OutlineCornerRadius="15"
-                Stroke="#00AFA0"
                 HasError="{Binding SignUpModel.Username.IsValid, Converter={StaticResource BoolInverterConverter}}"
                 ErrorText="{Binding SignUpModel.Username.Errors, Converter={StaticResource ListToStringConverter}}">
-                <Entry 
-                    FontSize="16" 
-                    TextColor="#1b4332"
-                    Text="{Binding SignUpModel.Username.Value}">
+                <Entry Text="{Binding SignUpModel.Username.Value}">
                 </Entry>
                 <sfTextInput:SfTextInputLayout.LeadingView>
-                    <Label
-                            Text="&#x1F5D3;">
-                    </Label>
+                    <Image Source="{StaticResource IconUsername}"/>
                 </sfTextInput:SfTextInputLayout.LeadingView>
             </sfTextInput:SfTextInputLayout>
+            
             <sfTextInput:SfTextInputLayout  
                 Hint="Email address"
-                ContainerType="Outlined"
-                ContainerBackground="Transparent"
-                OutlineCornerRadius="15"
-                Stroke="#00AFA0"
                 HasError="{Binding SignUpModel.Email.IsValid, Converter={StaticResource BoolInverterConverter}}"
                 ErrorText="{Binding SignUpModel.Email.Errors, Converter={StaticResource ListToStringConverter}}">
-                <Entry 
-                    FontSize="16" 
-                    TextColor="#1b4332"
-                    Text="{Binding SignUpModel.Email.Value}"/>
+                <Entry Text="{Binding SignUpModel.Email.Value}"/>
                 <sfTextInput:SfTextInputLayout.LeadingView>
-                    <Label
-                        Text="&#x1F5D3;">
-                    </Label>
+                    <Image Source="{StaticResource IconEmail}"/>
                 </sfTextInput:SfTextInputLayout.LeadingView>
             </sfTextInput:SfTextInputLayout>
+            
             <sfTextInput:SfTextInputLayout  
                 Hint="Password" 
-                ContainerType="Outlined"
-                ContainerBackground="Transparent"
-                OutlineCornerRadius="15"
-                Stroke="#00AFA0"
                 EnablePasswordVisibilityToggle="true"
                 HelperText="Password must contain at least one uppercase, lowercase, numeric and special character"
                 HasError="{Binding SignUpModel.Password.IsValid, Converter={StaticResource BoolInverterConverter}}"
                 ErrorText="{Binding SignUpModel.Password.Errors, Converter={StaticResource ListToStringConverter}}">
-                <Entry  FontSize="16" 
-                        TextColor="#1b4332"
-                        Text="{Binding SignUpModel.Password.Value}"/>
+                <Entry Text="{Binding SignUpModel.Password.Value}"/>
                 <sfTextInput:SfTextInputLayout.LeadingView>
-                    <Label
-                        Text="&#x1F5D3;">
-                    </Label>
+                    <Image Source="{StaticResource IconPassword}"/>
                 </sfTextInput:SfTextInputLayout.LeadingView>
             </sfTextInput:SfTextInputLayout>
         </VerticalStackLayout>
@@ -87,8 +63,6 @@
         <Button 
             Grid.Row="4"
             Text="Get started. it's free"
-            FontSize="20"
-            CornerRadius="34"
             IsEnabled="{Binding SignUpModel.CanSignUp}"
             Command="{Binding SignUpCommand}"
         />
@@ -102,8 +76,6 @@
             <Button 
                 Grid.Row="4"
                 Text="Sign In"
-                FontSize="20"
-                CornerRadius="34"
                 Command="{Binding NavigateSignInCommand}"
             />
         </VerticalStackLayout>

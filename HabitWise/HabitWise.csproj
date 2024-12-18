@@ -60,6 +60,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Resources\Fonts\FontAwesomeBrands.cs" />
+	  <Compile Remove="Resources\Fonts\FontAwesomeRegular.cs" />
+	  <Compile Remove="Resources\Fonts\FontAwesomeSolid.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Platforms\iOS\GoogleService-Info.plist" />
 	</ItemGroup>
 

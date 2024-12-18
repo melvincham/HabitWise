@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui;
-using Fonts;
 using HabitWise.PageModels;
 using HabitWise.Pages;
+using HabitWise.Resources.Fonts;
 using HabitWise.Services;
 using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Toolkit.Hosting;
@@ -19,9 +19,12 @@ namespace HabitWise
                 .ConfigureSyncfusionToolkit()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("FluentSystemIcons-Regular.ttf", FluentUI.FontFamily);
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("FluentSystemIcons-Regular.ttf", FluentUI.FontFamily);
+                    fonts.AddFont("fa-regular-400.ttf", "FontAwesomeRegular");
+                    fonts.AddFont("fa-brands-400.ttf", "FontAwesomeBrands");
+                    fonts.AddFont("fa-solid-900.ttf", "FontAwesomeSolid");
                 });
 
 #if DEBUG
