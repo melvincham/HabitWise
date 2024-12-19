@@ -33,6 +33,8 @@ namespace HabitWise
             // Register services
             builder.Services.AddSingleton<FirebaseAuthService>();
             builder.Services.AddSingleton<INavigationService, NavigationService>();
+            builder.Services.AddSingleton<IDailogService, DailogService>();
+            builder.Services.AddSingleton<IErrorHandler, ModalErrorHandler>();
 
             // Register PageModels
             builder.Services.AddTransient<SignInPageModel>();

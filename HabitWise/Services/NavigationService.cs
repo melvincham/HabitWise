@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HabitWise.Services
 {
-    internal class NavigationService : INavigationService
+    public class NavigationService : INavigationService
     {
         public async void GoToAsync(string page, bool animate = true) 
         {
