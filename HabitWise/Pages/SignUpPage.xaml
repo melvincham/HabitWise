@@ -11,7 +11,7 @@
              x:DataType="pageModels:SignUpPageModel" >
     <ContentPage.Resources>
         <ResourceDictionary>
-            <toolkit:ListToStringConverter x:Key="ListToStringConverter" Separator="\n" />
+            <toolkit:ListToStringConverter x:Key="ListToStringConverter" Separator=""/>
             <converters:BoolInverterConverter x:Key="BoolInverterConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -25,15 +25,23 @@
                VerticalOptions="CenterAndExpand"
                Aspect="Fill"
         />
+        <ActivityIndicator
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center"
+            Color="{StaticResource Magenta}"
+            WidthRequest="100">
+        </ActivityIndicator>
         <VerticalStackLayout Grid.Row="2">
             <sfTextInput:SfTextInputLayout  
                 Hint="User Name"
                 HasError="{Binding SignUpModel.Username.IsValid, Converter={StaticResource BoolInverterConverter}}"
                 ErrorText="{Binding SignUpModel.Username.Errors, Converter={StaticResource ListToStringConverter}}">
-                <Entry Text="{Binding SignUpModel.Username.Value}">
-                </Entry>
+                <Entry Style="{StaticResource TextEntryStyle}" Text="{Binding SignUpModel.Username.Value}"/>
                 <sfTextInput:SfTextInputLayout.LeadingView>
-                    <Image Source="{StaticResource IconUsername}"/>
+                    <Image Style="{StaticResource EntryImageStyle}" Source="{StaticResource IconUsername}"/>
                 </sfTextInput:SfTextInputLayout.LeadingView>
             </sfTextInput:SfTextInputLayout>
             
@@ -41,9 +49,9 @@
                 Hint="Email address"
                 HasError="{Binding SignUpModel.Email.IsValid, Converter={StaticResource BoolInverterConverter}}"
                 ErrorText="{Binding SignUpModel.Email.Errors, Converter={StaticResource ListToStringConverter}}">
-                <Entry Text="{Binding SignUpModel.Email.Value}"/>
+                <Entry Style="{StaticResource EmailEntryStyle}" Text="{Binding SignUpModel.Email.Value}"/>
                 <sfTextInput:SfTextInputLayout.LeadingView>
-                    <Image Source="{StaticResource IconEmail}"/>
+                    <Image Style="{StaticResource EntryImageStyle}" Source="{StaticResource IconEmail}"/>
                 </sfTextInput:SfTextInputLayout.LeadingView>
             </sfTextInput:SfTextInputLayout>
             
@@ -53,9 +61,9 @@
                 HelperText="Password must contain at least one uppercase, lowercase, numeric and special character"
                 HasError="{Binding SignUpModel.Password.IsValid, Converter={StaticResource BoolInverterConverter}}"
                 ErrorText="{Binding SignUpModel.Password.Errors, Converter={StaticResource ListToStringConverter}}">
-                <Entry Text="{Binding SignUpModel.Password.Value}"/>
+                <Entry Style="{StaticResource TextEntryStyle}" Text="{Binding SignUpModel.Password.Value}"/>
                 <sfTextInput:SfTextInputLayout.LeadingView>
-                    <Image Source="{StaticResource IconPassword}"/>
+                    <Image Style="{StaticResource EntryImageStyle}" Source="{StaticResource IconPassword}"/>
                 </sfTextInput:SfTextInputLayout.LeadingView>
             </sfTextInput:SfTextInputLayout>
         </VerticalStackLayout>

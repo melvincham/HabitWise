@@ -40,12 +40,12 @@ namespace HabitWise.Services
                     case AuthErrorReason.EmailExists:
                         throw new Exception("An account with this email already exists");
                     default:
-                        throw new Exception("An error occurred during sign-up.");
+                        throw new Exception("Sign-up failed: " + ex.Message);
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Sign-up failed", ex);
+                throw new Exception("Sign-up failed: " + ex.Message);
             }
         }
 
@@ -68,12 +68,12 @@ namespace HabitWise.Services
                     case AuthErrorReason.UnknownEmailAddress:
                         throw new Exception("No account exists with this email.");
                     default:
-                        throw new Exception("An error occurred during sign-in.");
+                        throw new Exception("Sign-In failed: " + ex.Message);
                 }
             }
             catch (Exception ex) 
             {
-                throw new Exception("An error occurred during sign-in.");
+                throw new Exception("Sign-In failed: " + ex.Message);
             }
         }
 
