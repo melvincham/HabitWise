@@ -27,8 +27,8 @@
 
     <OnIdiom x:Key="IconSize"
          x:TypeArguments="x:Double"
-         Default="20">
-        <OnIdiom.Desktop>32</OnIdiom.Desktop>
+         Default="30">
+        <OnIdiom.Desktop>35</OnIdiom.Desktop>
     </OnIdiom>
 
     <OnIdiom x:Key="IconSizeSmall"
@@ -40,31 +40,48 @@
     <FontImageSource x:Key="IconEmail"
             Glyph="{x:Static f:FluentUI.person_mail_20_regular}"
             FontFamily="{x:Static f:FluentUI.FontFamily}"
-            Color="{DynamicResource SurfaceColor}"
-            Size="{StaticResource IconSize}" />
+            Color="{DynamicResource SurfaceColor}"/>
     <FontImageSource x:Key="IconUsername"
             Glyph="{x:Static f:FluentUI.person_circle_20_regular}"
             FontFamily="{x:Static f:FluentUI.FontFamily}"
-            Color="{DynamicResource SurfaceColor}"
-            Size="{StaticResource IconSize}" />
+            Color="{DynamicResource SurfaceColor}"/>
     <FontImageSource x:Key="IconPassword"
              Glyph="{x:Static f:FluentUI.person_passkey_20_regular}"
              FontFamily="{x:Static f:FluentUI.FontFamily}"
-             Color="{DynamicResource SurfaceColor}"
-             Size="{StaticResource IconSize}" />
+             Color="{DynamicResource SurfaceColor}"/>
     
     <!-- Styles -->
+    <Style x:Key="EntryImageStyle" TargetType="{x:Type Image}">
+        <Setter Property="HeightRequest" Value="{StaticResource IconSize}"/>
+        <Setter Property="WidthRequest" Value="{StaticResource IconSize}"/>
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+    </Style>
+    
     <Style TargetType="{x:Type Button}">
         <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
         <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
-        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontSize" Value="20"/>
         <Setter Property="BorderWidth" Value="0"/>
         <Setter Property="CornerRadius" Value="34"/>
         <Setter Property="Padding" Value="14,10"/>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource Gray300}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver" />
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
     </Style>
 
-    <Style TargetType="{x:Type Entry}">
+    <Style x:Key="EntryStyle" TargetType="{x:Type Entry}">
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="PlaceholderColor" Value="{ StaticResource Gray500 }" />
@@ -72,11 +89,25 @@
         <Setter Property="HorizontalOptions" Value="FillAndExpand" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="Opacity" Value="0.7" />
-        <Style.Triggers>
-            <Trigger TargetType="Entry" Property="IsFocused" Value="True">
-                <Setter Property="Opacity" Value="1" />
-            </Trigger>
-        </Style.Triggers>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{StaticResource Gray300}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EmailEntryStyle" BasedOn="{StaticResource EntryStyle}" TargetType="{x:Type Entry}">
+        <Setter Property="Keyboard" Value="Email"/>
+    </Style>
+    <Style x:Key="TextEntryStyle" BasedOn="{StaticResource EntryStyle}" TargetType="{x:Type Entry}">
+        <Setter Property="Keyboard" Value="Default"/>
     </Style>
 
     <sf:LabelStyle x:Key="LabelStyle" TextColor="{DynamicResource TextColor}" FontSize="{StaticResource size200}" />
@@ -90,6 +121,46 @@
         <Setter Property="HintLabelStyle" Value="{StaticResource LabelStyle}"/>
         <Setter Property="ErrorLabelStyle" Value="{StaticResource ErrorLabelStyle}"/>
         <Setter Property="HelperLabelStyle" Value="{StaticResource HelperLabelStyle}"/>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="Stroke" Value="{DynamicResource SurfaceColor}"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Focused">
+                        <VisualState.Setters>
+                            <Setter Property="Stroke" Value="{DynamicResource PrimaryColor}"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Error">
+                        <VisualState.Setters>
+                            <Setter Property="Stroke" Value="{StaticResource ErrorTextColor}"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontFamily" Value="OpenSansRegular" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{StaticResource Gray300}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
     </Style>
 
 </ResourceDictionary>
