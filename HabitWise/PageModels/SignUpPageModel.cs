@@ -18,11 +18,19 @@ namespace HabitWise.PageModels
     {
         private FirebaseAuthService _firebaseAuthService;
         private INavigationService _navigationService;
+        private IErrorHandler _errorHandler;
+        private IDailogService _dailogService;
 
-        public SignUpPageModel(FirebaseAuthService firebaseAuthService, INavigationService navigationService) 
+        public SignUpPageModel(
+            FirebaseAuthService firebaseAuthService, 
+            INavigationService navigationService,
+            IErrorHandler errorHandler,
+            IDailogService dailogService) 
         {
             _firebaseAuthService = firebaseAuthService;
             _navigationService = navigationService;
+            _errorHandler = errorHandler;
+            _dailogService = dailogService;
         }
 
         [ObservableProperty]
@@ -43,15 +51,18 @@ namespace HabitWise.PageModels
                         {
                             ErrorMessage = "Sign-up successful!";
                             _navigationService.GoToAsync($"//{nameof(MainPage)}");
+                            await _dailogService.DisplayToastAsync(ErrorMessage);
                         }
                         else
                         {
                             ErrorMessage = "Sign-up failed. UserCredential returned null.";
+                            _errorHandler.HandleError(new Exception(ErrorMessage));
                         }
                     }
                     catch (Exception ex)
                     {
                         ErrorMessage = ex.Message;
+                        _errorHandler.HandleError(ex);
                     }
                 });
             }
