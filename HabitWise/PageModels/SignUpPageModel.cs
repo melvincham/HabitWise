@@ -11,6 +11,8 @@ using CommunityToolkit.Mvvm.Input;
 using HabitWise.Pages;
 using System.ComponentModel;
 using HabitWise.Validations;
+using HabitWise.Helpers;
+using System.Windows.Input;
 
 namespace HabitWise.PageModels
 {
@@ -31,10 +33,20 @@ namespace HabitWise.PageModels
             _navigationService = navigationService;
             _errorHandler = errorHandler;
             _dailogService = dailogService;
+            isDarkMode = ThemeHelper.IsDarkTheme; 
         }
 
         [ObservableProperty]
         private SignUpModel signUpModel = new();
+
+        [ObservableProperty]
+        private bool isDarkMode;
+
+        public ICommand ToggleThemeCommand => new Command<bool>((isToggled) =>
+        {
+            IsDarkMode = isToggled;
+            ThemeHelper.ChangeTheme();
+        });
 
         [RelayCommand]
         private async Task SignUp()

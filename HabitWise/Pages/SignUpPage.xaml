@@ -7,6 +7,7 @@
              xmlns:sfTextInput="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
              xmlns:models="clr-namespace:HabitWise.Models"
              xmlns:pageModels="clr-namespace:HabitWise.PageModels"
+             xmlns:controls="clr-namespace:HabitWise.Controls"
              x:Class="HabitWise.Pages.SignUpPage"
              x:DataType="pageModels:SignUpPageModel" >
     <ContentPage.Resources>
@@ -17,7 +18,7 @@
     </ContentPage.Resources>
     <Grid
         Margin="25,5"
-        RowDefinitions=" *, *, 4*, 0.5*, Auto, 1.0*, Auto, *">
+        RowDefinitions=" *, Auto, Auto, 4*, 0.5*, Auto, 1.0*, Auto, 0.5*">
 
         <Image x:Name="LogoImage" 
                Source="logo.png"
@@ -34,7 +35,19 @@
             Color="{StaticResource Magenta}"
             WidthRequest="100">
         </ActivityIndicator>
-        <VerticalStackLayout Grid.Row="2">
+        <controls:ToggleButton Grid.Row="2"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               HeightRequest="40"
+                               WidthRequest="85"
+                               ToggleColor="{DynamicResource PrimaryColor}"
+                               ToggledImage="{StaticResource DarkThemeImage}"
+                               UnToggledImage="{StaticResource LightThemeImage}"
+                               IsToggled="{Binding IsDarkMode}"
+                               ToggleCommand="{Binding ToggleThemeCommand}"
+        />
+
+        <VerticalStackLayout Grid.Row="3">
             <sfTextInput:SfTextInputLayout  
                 Hint="User Name"
                 HasError="{Binding SignUpModel.Username.IsValid, Converter={StaticResource BoolInverterConverter}}"
@@ -69,13 +82,13 @@
         </VerticalStackLayout>
 
         <Button 
-            Grid.Row="4"
+            Grid.Row="5"
             Text="Get started. it's free"
             IsEnabled="{Binding SignUpModel.CanSignUp}"
             Command="{Binding SignUpCommand}"
         />
 
-        <VerticalStackLayout Grid.Row="6">
+        <VerticalStackLayout Grid.Row="7">
             <Label
                 Text="Do you already have an account?"
                 HorizontalOptions="Center"

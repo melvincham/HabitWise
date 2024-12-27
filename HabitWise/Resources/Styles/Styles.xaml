@@ -49,7 +49,15 @@
              Glyph="{x:Static f:FluentUI.person_passkey_20_regular}"
              FontFamily="{x:Static f:FluentUI.FontFamily}"
              Color="{DynamicResource SurfaceColor}"/>
-    
+    <FontImageSource x:Key="LightThemeImage"
+             Glyph="{x:Static f:FluentUI.weather_sunny_28_regular}"
+             FontFamily="{x:Static f:FluentUI.FontFamily}"
+             Color="{DynamicResource SurfaceColor}"/>
+    <FontImageSource x:Key="DarkThemeImage"
+         Glyph="{x:Static f:FluentUI.weather_moon_20_regular}"
+         FontFamily="{x:Static f:FluentUI.FontFamily}"
+         Color="{DynamicResource SurfaceColor}"/>
+
     <!-- Styles -->
     <Style x:Key="EntryImageStyle" TargetType="{x:Type Image}">
         <Setter Property="HeightRequest" Value="{StaticResource IconSize}"/>
