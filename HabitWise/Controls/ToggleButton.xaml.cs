@@ -11,29 +11,17 @@ namespace HabitWise.Controls
 {
     public partial class ToggleButton : ContentView
     {
-        Image ToggleImage;
+        Image ToggleImage = new Image
+        {
+            Aspect = Aspect.AspectFill
+        };
+
         public ToggleButton()
         {
             InitializeComponent();
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += OnTapped;
             MainGrid.GestureRecognizers.Add(tapGestureRecognizer);
-        }
-
-        protected override void OnBindingContextChanged()
-        {
-            base.OnBindingContextChanged();
-
-            if (ToggledImage != null && UnToggledImage != null)
-            {
-                ToggleImage = new Image
-                {
-                    Source = UpdateImageSource(),
-                    Aspect = Aspect.AspectFill
-                };
-                ToggleImageBorder.Content = ToggleImage;
-                AnimateToggle();
-            }
         }
 
         public static readonly BindableProperty IsToggledProperty = BindableProperty.Create(
@@ -52,19 +40,23 @@ namespace HabitWise.Controls
         public static readonly BindableProperty ToggledImageProperty = BindableProperty.Create(
            nameof(ToggledImage),
            typeof(ImageSource),
-           typeof(ToggleButton)
+           typeof(ToggleButton),
+           default(ImageSource),
+           propertyChanged: OnToggledImageChanged
         );
         public static readonly BindableProperty UnToggledImageProperty = BindableProperty.Create(
            nameof(UnToggledImage),
            typeof(ImageSource),
-           typeof(ToggleButton)
+           typeof(ToggleButton),
+           default(ImageSource),
+           propertyChanged: OnUnToggledImageChanged
         );
 
         public static readonly BindableProperty ToggleColorProperty = BindableProperty.Create(
             nameof(ToggleColor),
             typeof(Color),
             typeof(ToggleButton),
-            Colors.Yellow, // Default value
+            Colors.Yellow, 
             propertyChanged: OnToggleColorChanged
         );
 
@@ -72,8 +64,16 @@ namespace HabitWise.Controls
             nameof(ToggleBackgroundColor),
             typeof(Color),
             typeof(ToggleButton),
-            Colors.Transparent, // Default value
+            Colors.Transparent, 
             propertyChanged: OnToggleBackgroundColorChanged
+        );
+
+        public static readonly BindableProperty ToggleStrokeShapeProperty = BindableProperty.Create(
+            nameof(ToggleStrokeShape),
+            typeof(Shape),
+            typeof(ToggleButton),
+            null,
+            propertyChanged: OnToggleStrokeShapeChanged
         );
 
         public bool IsToggled
@@ -112,46 +112,72 @@ namespace HabitWise.Controls
             set => SetValue(ToggleBackgroundColorProperty, value);
         }
 
+        public Shape ToggleStrokeShape   
+        {
+            get => (Shape)GetValue(ToggleStrokeShapeProperty);
+            set => SetValue(ToggleStrokeShapeProperty, value);
+        }
+
         public static void OnToggledChanged(BindableObject bindable, object oldValue, object newValue)
         {
             if (bindable is ToggleButton toggleButton)
             {
-                toggleButton.ToggleImage.Source = toggleButton.UpdateImageSource();
-                toggleButton.ToggleImageBorder.Content = toggleButton.ToggleImage;
                 toggleButton.AnimateToggle();
                 toggleButton.ExecuteToggleCommand();
             }
         }
 
+        private static void OnToggledImageChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is ToggleButton toggleButton && newValue is ImageSource newSource)
+            {
+                toggleButton.ToggledImage = newSource; 
+                toggleButton.AnimateToggle();
+            }
+        }
+
+        private static void OnUnToggledImageChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is ToggleButton toggleButton && newValue is ImageSource newSource)
+            {
+                toggleButton.UnToggledImage = newSource;
+                toggleButton.AnimateToggle();
+            }
+        }
+
         private static void OnToggleColorChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is ToggleButton toggleButton)
+            if (bindable is ToggleButton toggleButton && newValue is Color newColor)
             {
-                if (newValue is Color newColor)
-                {
-                    toggleButton.ToggleImageBorder.BackgroundColor = newColor;
-                }
+                toggleButton.ToggleImageBorder.BackgroundColor = newColor;
             }
         }
 
         private static void OnToggleBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is ToggleButton toggleButton)
+            if (bindable is ToggleButton toggleButton && newValue is Color newColor)
             {
-                if (newValue is Color newColor)
-                {
-                    toggleButton.BackgroundColor = newColor;
-                }
+                toggleButton.MainBorder.BackgroundColor = newColor;
             }
         }
 
-        private ImageSource UpdateImageSource()
+        private static void OnToggleStrokeShapeChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            return IsToggled ? ToggledImage : UnToggledImage;
+            if (bindable is ToggleButton toggleButton && newValue is Shape newShape)
+            {
+                toggleButton.MainBorder.StrokeShape = newShape;
+            }
         }
 
-        private async void AnimateToggle()
+        private void UpdateImageSource()
         {
+           ToggleImage.Source =  IsToggled ? ToggledImage : UnToggledImage;
+        }
+
+        private void AnimateToggle()
+        {
+            UpdateImageSource();
+            ToggleImageBorder.Content = ToggleImage;
             var targetColumn = IsToggled ? 1 : 0;
             //await ToggleImage.TranslateTo(targetColumn == 1 ? 80 / 2 : 0, 0, 200);
             Grid.SetColumn(ToggleImageBorder, targetColumn);

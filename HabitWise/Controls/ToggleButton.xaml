@@ -2,20 +2,21 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="HabitWise.Controls.ToggleButton">
+             x:Class="HabitWise.Controls.ToggleButton"
+             
+             >
     <ContentView.Resources>
         <ResourceDictionary>
-            <RoundRectangle x:Key="DefaultRoundedRectangle" CornerRadius="20" />
+            <RoundRectangle x:Key="DefaultRoundedRectangle1" CornerRadius="20" />
         </ResourceDictionary>
     </ContentView.Resources>
-
-    <Border 
+    <Border x:Name="MainBorder"
             BindingContext="{x:Reference this}"
-            BackgroundColor="{Binding ToggleBackgroundColor, FallbackValue=Transparent}"
+            Background="{Binding ToggleBackgroundColor, FallbackValue=Transparent}"
+            StrokeShape="{Binding ToggleStrokeShape}"
             Stroke="{Binding Stroke, FallbackValue={StaticResource Gray500}}"
-            StrokeShape="{Binding StrokeShape, FallbackValue={StaticResource DefaultRoundedRectangle}}" 
             >
-        <Grid x:Name="MainGrid" 
+        <Grid x:Name="MainGrid"
               ColumnSpacing="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -27,7 +28,6 @@
                     Stroke="{Binding Stroke, FallbackValue={StaticResource Gray500}}"
                     StrokeShape="Ellipse">
             </Border>
-            
         </Grid>
     </Border>
 </ContentView>

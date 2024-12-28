@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <toolkit:ListToStringConverter x:Key="ListToStringConverter" Separator=""/>
             <converters:BoolInverterConverter x:Key="BoolInverterConverter" />
+            <RoundRectangle x:Key="DefaultRoundedRectangle" CornerRadius="30" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid
@@ -28,19 +29,18 @@
         />
         <ActivityIndicator
             Grid.Row="1"
-            HorizontalOptions="Center"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
-            VerticalOptions="Center"
-            Color="{StaticResource Magenta}"
-            WidthRequest="100">
-        </ActivityIndicator>
+        />
+
         <controls:ToggleButton Grid.Row="2"
                                VerticalOptions="Center"
                                HorizontalOptions="Center"
                                HeightRequest="40"
-                               WidthRequest="85"
-                               ToggleColor="{DynamicResource PrimaryColor}"
+                               WidthRequest="75"
+                               ToggleStrokeShape="{StaticResource DefaultRoundedRectangle}"
+                               ToggleColor="{DynamicResource SecondaryColor}"
+                               ToggleBackgroundColor="{DynamicResource PrimaryColor}"
                                ToggledImage="{StaticResource DarkThemeImage}"
                                UnToggledImage="{StaticResource LightThemeImage}"
                                IsToggled="{Binding IsDarkMode}"
