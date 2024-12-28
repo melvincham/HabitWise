@@ -40,25 +40,29 @@
     <FontImageSource x:Key="IconEmail"
             Glyph="{x:Static f:FluentUI.person_mail_20_regular}"
             FontFamily="{x:Static f:FluentUI.FontFamily}"
-            Color="{DynamicResource SurfaceColor}"/>
+            Color="{DynamicResource OnBackgroundColor}"/>
     <FontImageSource x:Key="IconUsername"
             Glyph="{x:Static f:FluentUI.person_circle_20_regular}"
             FontFamily="{x:Static f:FluentUI.FontFamily}"
-            Color="{DynamicResource SurfaceColor}"/>
+            Color="{DynamicResource OnBackgroundColor}"/>
     <FontImageSource x:Key="IconPassword"
              Glyph="{x:Static f:FluentUI.person_passkey_20_regular}"
              FontFamily="{x:Static f:FluentUI.FontFamily}"
-             Color="{DynamicResource SurfaceColor}"/>
+             Color="{DynamicResource OnBackgroundColor}"/>
     <FontImageSource x:Key="LightThemeImage"
              Glyph="{x:Static f:FluentUI.weather_sunny_28_regular}"
              FontFamily="{x:Static f:FluentUI.FontFamily}"
-             Color="{DynamicResource SurfaceColor}"/>
+             Color="{DynamicResource OnPrimaryColor}"/>
     <FontImageSource x:Key="DarkThemeImage"
          Glyph="{x:Static f:FluentUI.weather_moon_20_regular}"
          FontFamily="{x:Static f:FluentUI.FontFamily}"
-         Color="{DynamicResource SurfaceColor}"/>
+         Color="{DynamicResource OnPrimaryColor}"/>
 
     <!-- Styles -->
+    <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="{DynamicResource BackgroundColor}"/>
+    </Style>
+    
     <Style x:Key="EntryImageStyle" TargetType="{x:Type Image}">
         <Setter Property="HeightRequest" Value="{StaticResource IconSize}"/>
         <Setter Property="WidthRequest" Value="{StaticResource IconSize}"/>
@@ -67,7 +71,7 @@
     </Style>
     
     <Style TargetType="{x:Type Button}">
-        <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+        <Setter Property="TextColor" Value="{DynamicResource OnPrimaryColor}" />
         <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="20"/>
@@ -92,6 +96,7 @@
     <Style x:Key="EntryStyle" TargetType="{x:Type Entry}">
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{DynamicResource OnBackgroundColor}" />
         <Setter Property="PlaceholderColor" Value="{ StaticResource Gray500 }" />
         <Setter Property="FontSize" Value="{StaticResource size200}" />
         <Setter Property="HorizontalOptions" Value="FillAndExpand" />
@@ -118,9 +123,9 @@
         <Setter Property="Keyboard" Value="Default"/>
     </Style>
 
-    <sf:LabelStyle x:Key="LabelStyle" TextColor="{DynamicResource TextColor}" FontSize="{StaticResource size200}" />
+    <sf:LabelStyle x:Key="LabelStyle" TextColor="{DynamicResource OnBackgroundColor}" FontSize="{StaticResource size200}" />
     <sf:LabelStyle x:Key="ErrorLabelStyle" TextColor="{StaticResource ErrorTextColor}" FontSize="{StaticResource size160}"/>
-    <sf:LabelStyle x:Key="HelperLabelStyle" TextColor="{DynamicResource TextColor}" FontSize="{StaticResource size160}" />
+    <sf:LabelStyle x:Key="HelperLabelStyle" TextColor="{DynamicResource OnBackgroundColor}" FontSize="{StaticResource size160}" />
     <Style TargetType="sf:SfTextInputLayout">
         <Setter Property="ContainerType" Value="Outlined"/>
         <Setter Property="OutlineCornerRadius" Value="15"/>
@@ -153,7 +158,7 @@
     </Style>
 
     <Style TargetType="Label">
-        <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+        <Setter Property="TextColor" Value="{DynamicResource OnBackgroundColor}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="16" />
@@ -171,4 +176,11 @@
         </Setter>
     </Style>
 
+    <Style ApplyToDerivedTypes="True"
+           CanCascade="True"
+           TargetType="ActivityIndicator">
+        <Setter Property="Color" Value="{DynamicResource SecondaryColor}"/>
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+    </Style>
 </ResourceDictionary>

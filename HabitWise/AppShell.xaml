@@ -5,21 +5,33 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:HabitWise"
     xmlns:pages="clr-namespace:HabitWise.Pages"
-    Shell.FlyoutBehavior="Flyout"
-    Title="HabitWise">
+    Shell.FlyoutBehavior="Disabled"
+    Title="HabitWise"
+    BackgroundColor="{DynamicResource BackgroundColor}"
+    ForegroundColor="{DynamicResource SurfaceColor}"
+    TitleColor="{DynamicResource OnBackgroundColor}"
+    DisabledColor="{DynamicResource SurfaceColor}"
+    UnselectedColor="{DynamicResource SecondaryColor}"
+    >
 
+    <ShellContent 
+        x:Name="SignUpItem"
+        Title="Sign Up" 
+        Route="SignUpPage" 
+        ContentTemplate="{DataTemplate pages:SignUpPage}" 
+        Shell.FlyoutBehavior="Disabled"
+        Shell.NavBarIsVisible="False"/>
     <ShellContent
+        x:Name="MainItem"
         Title="Home"
         ContentTemplate="{DataTemplate pages:MainPage}"
         Route="MainPage" />
     <ShellContent 
+        x:Name="SignInItem"
         Title="Sign In" 
         Route="SignInPage" 
         ContentTemplate="{DataTemplate pages:SignInPage}" 
-        Shell.FlyoutBehavior="Disabled" />
-    <ShellContent 
-        Title="Sign Up" 
-        Route="SignUpPage" 
-        ContentTemplate="{DataTemplate pages:SignUpPage}" 
-        Shell.FlyoutBehavior="Disabled"/>
+        Shell.FlyoutBehavior="Disabled" 
+        Shell.NavBarIsVisible="False"/>
+
 </Shell>

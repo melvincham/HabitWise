@@ -4,7 +4,17 @@
     {
         public AppShell()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch(Exception ex) 
+            {
+                Console.WriteLine(ex.InnerException?.Message);
+                Console.WriteLine(ex.InnerException?.StackTrace);
+                throw;
+            }
+            
         }
     }
 }

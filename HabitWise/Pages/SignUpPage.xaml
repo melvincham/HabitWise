@@ -9,7 +9,7 @@
              xmlns:pageModels="clr-namespace:HabitWise.PageModels"
              xmlns:controls="clr-namespace:HabitWise.Controls"
              x:Class="HabitWise.Pages.SignUpPage"
-             x:DataType="pageModels:SignUpPageModel" >
+             x:DataType="pageModels:SignUpPageModel">
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:ListToStringConverter x:Key="ListToStringConverter" Separator=""/>
@@ -19,7 +19,7 @@
     </ContentPage.Resources>
     <Grid
         Margin="25,5"
-        RowDefinitions=" *, Auto, Auto, 4*, 0.5*, Auto, 1.0*, Auto, 0.5*">
+        RowDefinitions=" 0.8*, Auto, Auto, 4*, 0.3*, Auto, 0.8*, Auto, 0.5*">
 
         <Image x:Name="LogoImage" 
                Source="logo.png"
@@ -38,9 +38,10 @@
                                HorizontalOptions="Center"
                                HeightRequest="40"
                                WidthRequest="75"
+                               Margin="0,0,0,30"
                                ToggleStrokeShape="{StaticResource DefaultRoundedRectangle}"
-                               ToggleColor="{DynamicResource SecondaryColor}"
-                               ToggleBackgroundColor="{DynamicResource PrimaryColor}"
+                               ToggleColor="{DynamicResource PrimaryColor}"
+                               ToggleBackgroundColor="{DynamicResource SecondaryColor}"
                                ToggledImage="{StaticResource DarkThemeImage}"
                                UnToggledImage="{StaticResource LightThemeImage}"
                                IsToggled="{Binding IsDarkMode}"
