@@ -8,7 +8,7 @@ namespace HabitWise.Services
 {
     public class NavigationService : INavigationService
     {
-        public async void GoToAsync(string page, bool animate = true) 
+        public async Task GoToAsync(string page, bool animate = true) 
         {
             await Shell.Current.GoToAsync(page, animate);
         }

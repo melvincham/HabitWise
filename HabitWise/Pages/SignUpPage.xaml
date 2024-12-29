@@ -22,7 +22,7 @@
         RowDefinitions=" 0.8*, Auto, Auto, 4*, 0.3*, Auto, 0.8*, Auto, 0.5*">
 
         <Image x:Name="LogoImage" 
-               Source="logo.png"
+               Source="habitwiselogo.png"
                HorizontalOptions="CenterAndExpand"
                VerticalOptions="CenterAndExpand"
                Aspect="Fill"

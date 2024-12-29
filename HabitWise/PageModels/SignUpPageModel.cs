@@ -62,7 +62,7 @@ namespace HabitWise.PageModels
                         if (isSignedIn)
                         {
                             ErrorMessage = "Sign-up successful!";
-                            _navigationService.GoToAsync($"//{nameof(MainPage)}");
+                            await _navigationService.GoToAsync($"//{nameof(MainPage)}");
                             await _dailogService.DisplayToastAsync(ErrorMessage);
                         }
                         else
@@ -83,7 +83,10 @@ namespace HabitWise.PageModels
         [RelayCommand]
         private async Task NavigateSignIn()
         {
-            await Shell.Current.GoToAsync($"///{nameof(SignInPage)}");
+            await RunWithBusyIndicator(async () =>
+            {
+                await _navigationService.GoToAsync($"///{nameof(SignInPage)}");
+            });
         }
     }
 }
