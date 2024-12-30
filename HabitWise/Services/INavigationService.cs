@@ -8,6 +8,10 @@ namespace HabitWise.Services
 {
     public interface INavigationService
     {
-        public Task GoToAsync(string page, bool animate = true);
+        Task InitializeAsync();
+
+        public Task GoToAsync(string page, bool animate = true, IDictionary<string, object> routeParameters = null);
+
+        Task PopAsync();
     }
 }

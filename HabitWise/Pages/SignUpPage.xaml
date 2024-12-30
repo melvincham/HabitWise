@@ -17,89 +17,91 @@
             <RoundRectangle x:Key="DefaultRoundedRectangle" CornerRadius="30" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid
-        Margin="25,5"
-        RowDefinitions=" 0.8*, Auto, Auto, 4*, 0.3*, Auto, 0.8*, Auto, 0.5*">
+    <ScrollView>
+        <Grid
+            Margin="25,5"
+            RowDefinitions=" 60, Auto, Auto, 4*, 0.3*, Auto, 0.8*, Auto, 0.5*">
 
-        <Image x:Name="LogoImage" 
-               Source="habitwiselogo.png"
-               HorizontalOptions="CenterAndExpand"
-               VerticalOptions="CenterAndExpand"
-               Aspect="Fill"
-        />
-        <ActivityIndicator
-            Grid.Row="1"
-            IsRunning="{Binding IsBusy}"
-            IsVisible="{Binding IsBusy}"
-        />
-
-        <controls:ToggleButton Grid.Row="2"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center"
-                               HeightRequest="40"
-                               WidthRequest="75"
-                               Margin="0,0,0,30"
-                               ToggleStrokeShape="{StaticResource DefaultRoundedRectangle}"
-                               ToggleColor="{DynamicResource PrimaryColor}"
-                               ToggleBackgroundColor="{DynamicResource SecondaryColor}"
-                               ToggledImage="{StaticResource DarkThemeImage}"
-                               UnToggledImage="{StaticResource LightThemeImage}"
-                               IsToggled="{Binding IsDarkMode}"
-                               ToggleCommand="{Binding ToggleThemeCommand}"
-        />
-
-        <VerticalStackLayout Grid.Row="3">
-            <sfTextInput:SfTextInputLayout  
-                Hint="User Name"
-                HasError="{Binding SignUpModel.Username.IsValid, Converter={StaticResource BoolInverterConverter}}"
-                ErrorText="{Binding SignUpModel.Username.Errors, Converter={StaticResource ListToStringConverter}}">
-                <Entry Style="{StaticResource TextEntryStyle}" Text="{Binding SignUpModel.Username.Value}"/>
-                <sfTextInput:SfTextInputLayout.LeadingView>
-                    <Image Style="{StaticResource EntryImageStyle}" Source="{StaticResource IconUsername}"/>
-                </sfTextInput:SfTextInputLayout.LeadingView>
-            </sfTextInput:SfTextInputLayout>
-            
-            <sfTextInput:SfTextInputLayout  
-                Hint="Email address"
-                HasError="{Binding SignUpModel.Email.IsValid, Converter={StaticResource BoolInverterConverter}}"
-                ErrorText="{Binding SignUpModel.Email.Errors, Converter={StaticResource ListToStringConverter}}">
-                <Entry Style="{StaticResource EmailEntryStyle}" Text="{Binding SignUpModel.Email.Value}"/>
-                <sfTextInput:SfTextInputLayout.LeadingView>
-                    <Image Style="{StaticResource EntryImageStyle}" Source="{StaticResource IconEmail}"/>
-                </sfTextInput:SfTextInputLayout.LeadingView>
-            </sfTextInput:SfTextInputLayout>
-            
-            <sfTextInput:SfTextInputLayout  
-                Hint="Password" 
-                EnablePasswordVisibilityToggle="true"
-                HelperText="Password must contain at least one uppercase, lowercase, numeric and special character"
-                HasError="{Binding SignUpModel.Password.IsValid, Converter={StaticResource BoolInverterConverter}}"
-                ErrorText="{Binding SignUpModel.Password.Errors, Converter={StaticResource ListToStringConverter}}">
-                <Entry Style="{StaticResource TextEntryStyle}" Text="{Binding SignUpModel.Password.Value}"/>
-                <sfTextInput:SfTextInputLayout.LeadingView>
-                    <Image Style="{StaticResource EntryImageStyle}" Source="{StaticResource IconPassword}"/>
-                </sfTextInput:SfTextInputLayout.LeadingView>
-            </sfTextInput:SfTextInputLayout>
-        </VerticalStackLayout>
-
-        <Button 
-            Grid.Row="5"
-            Text="Get started. it's free"
-            IsEnabled="{Binding SignUpModel.CanSignUp}"
-            Command="{Binding SignUpCommand}"
-        />
-
-        <VerticalStackLayout Grid.Row="7">
-            <Label
-                Text="Do you already have an account?"
-                HorizontalOptions="Center"
-                Margin="10"
-                />
-            <Button 
-                Grid.Row="4"
-                Text="Sign In"
-                Command="{Binding NavigateSignInCommand}"
+            <Image x:Name="LogoImage" 
+                   Source="habitwiselogo.png"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"
+                   Aspect="Fill"
             />
-        </VerticalStackLayout>
-    </Grid>
+            <ActivityIndicator
+                Grid.Row="1"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+            />
+
+            <controls:ToggleButton Grid.Row="2"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   HeightRequest="40"
+                                   WidthRequest="75"
+                                   Margin="0,0,0,30"
+                                   ToggleStrokeShape="{StaticResource DefaultRoundedRectangle}"
+                                   ToggleColor="{DynamicResource PrimaryColor}"
+                                   ToggleBackgroundColor="{DynamicResource SecondaryColor}"
+                                   ToggledImage="{StaticResource DarkThemeImage}"
+                                   UnToggledImage="{StaticResource LightThemeImage}"
+                                   IsToggled="{Binding IsDarkMode}"
+                                   ToggleCommand="{Binding ToggleThemeCommand}"
+            />
+
+            <VerticalStackLayout Grid.Row="3">
+                <sfTextInput:SfTextInputLayout  
+                    Hint="User Name"
+                    HasError="{Binding SignUpModel.Username.IsValid, Converter={StaticResource BoolInverterConverter}}"
+                    ErrorText="{Binding SignUpModel.Username.Errors, Converter={StaticResource ListToStringConverter}}">
+                    <Entry Style="{StaticResource TextEntryStyle}" Text="{Binding SignUpModel.Username.Value}"/>
+                    <sfTextInput:SfTextInputLayout.LeadingView>
+                        <Image Style="{StaticResource EntryImageStyle}" Source="{StaticResource IconUsername}"/>
+                    </sfTextInput:SfTextInputLayout.LeadingView>
+                </sfTextInput:SfTextInputLayout>
+            
+                <sfTextInput:SfTextInputLayout  
+                    Hint="Email address"
+                    HasError="{Binding SignUpModel.Email.IsValid, Converter={StaticResource BoolInverterConverter}}"
+                    ErrorText="{Binding SignUpModel.Email.Errors, Converter={StaticResource ListToStringConverter}}">
+                    <Entry Style="{StaticResource EmailEntryStyle}" Text="{Binding SignUpModel.Email.Value}"/>
+                    <sfTextInput:SfTextInputLayout.LeadingView>
+                        <Image Style="{StaticResource EntryImageStyle}" Source="{StaticResource IconEmail}"/>
+                    </sfTextInput:SfTextInputLayout.LeadingView>
+                </sfTextInput:SfTextInputLayout>
+            
+                <sfTextInput:SfTextInputLayout  
+                    Hint="Password" 
+                    EnablePasswordVisibilityToggle="true"
+                    HelperText="Password must contain at least one uppercase, lowercase, numeric and special character"
+                    HasError="{Binding SignUpModel.Password.IsValid, Converter={StaticResource BoolInverterConverter}}"
+                    ErrorText="{Binding SignUpModel.Password.Errors, Converter={StaticResource ListToStringConverter}}">
+                    <Entry Style="{StaticResource TextEntryStyle}" Text="{Binding SignUpModel.Password.Value}"/>
+                    <sfTextInput:SfTextInputLayout.LeadingView>
+                        <Image Style="{StaticResource EntryImageStyle}" Source="{StaticResource IconPassword}"/>
+                    </sfTextInput:SfTextInputLayout.LeadingView>
+                </sfTextInput:SfTextInputLayout>
+            </VerticalStackLayout>
+
+            <Button 
+                Grid.Row="5"
+                Text="Get started. it's free"
+                IsEnabled="{Binding SignUpModel.CanSignUp}"
+                Command="{Binding SignUpCommand}"
+            />
+
+            <VerticalStackLayout Grid.Row="7">
+                <Label
+                    Text="Do you already have an account?"
+                    HorizontalOptions="Center"
+                    Margin="10"
+                    />
+                <Button 
+                    Grid.Row="4"
+                    Text="Sign In"
+                    Command="{Binding NavigateSignInCommand}"
+                />
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>
