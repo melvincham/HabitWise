@@ -3,15 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="HabitWise.Controls.ToggleButton"
-             
              >
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <RoundRectangle x:Key="DefaultRoundedRectangle1" CornerRadius="20" />
-        </ResourceDictionary>
-    </ContentView.Resources>
     <Border x:Name="MainBorder"
-            BindingContext="{x:Reference this}"
             Background="{Binding ToggleBackgroundColor, FallbackValue=Transparent}"
             StrokeShape="{Binding ToggleStrokeShape}"
             Stroke="{Binding Stroke, FallbackValue={StaticResource Gray500}}"

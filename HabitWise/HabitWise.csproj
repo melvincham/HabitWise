@@ -89,6 +89,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Controls\FlyoutFooter.xaml">
+	    <Generator></Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\FlyoutHeader.xaml">
+	    <Generator></Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\ToggleButton.xaml">
 	    <Generator></Generator>
 	  </MauiXaml>
@@ -96,6 +102,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\SignUpPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Templates\FlyoutItemTemplate.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Resources\Themes\DarkTheme.xaml">

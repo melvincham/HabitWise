@@ -1,4 +1,5 @@
-﻿using HabitWise.Resources.Themes;
+﻿using HabitWise.PageModels;
+using HabitWise.Resources.Themes;
 using System.Reflection;
 
 namespace HabitWise
@@ -28,7 +29,7 @@ namespace HabitWise
         protected override Window CreateWindow(IActivationState? activationState)
         {
             ApplyTheme(AppInfo.RequestedTheme == AppTheme.Dark ? "DarkTheme" : "LightTheme");
-            return new Window(new AppShell());
+            return new Window(new AppShell(new AppShellPageModel()));
         }
 
         public void ApplyTheme(string themeKey)
