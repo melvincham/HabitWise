@@ -5,7 +5,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="HabitWise.Controls.FlyoutFooter">
     <StackLayout Margin="10" >
-        <controls:ToggleButton Grid.Row="2"
+        <controls:ToggleButton 
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 HeightRequest="40"

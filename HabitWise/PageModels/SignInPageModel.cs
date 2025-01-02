@@ -56,7 +56,7 @@ namespace HabitWise.PageModels
                         if (isSignedIn)
                         {
                             ErrorMessage = "Login successful!";
-                            _navigationService.GoToAsync($"//{nameof(MainPage)}");
+                            await _navigationService.GoToAsync($"//{nameof(MainPage)}");
                             await _dailogService.DisplayToastAsync(ErrorMessage);
                         }
                         else

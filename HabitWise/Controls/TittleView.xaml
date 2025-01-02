@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HabitWise.Controls.TittleView">
+
+    <Grid ColumnSpacing="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="70" />
+        </Grid.ColumnDefinitions>
+        <Label 
+                Text="{Binding PageTitle}" 
+                FontSize="20" 
+                FontAttributes="Bold" 
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Center"
+                TextColor="{DynamicResource SecondaryColor}" />
+
+        <ImageButton 
+                Grid.Column="1"
+                x:Name="ProfileButton"
+                Source="{StaticResource IconUser}" 
+                Command="{Binding ProfileCommand}" 
+                BackgroundColor="Transparent"
+                CornerRadius="20"
+                BorderColor="{DynamicResource SecondaryColor}" 
+                BorderWidth="2"
+                WidthRequest="40" 
+                HeightRequest="40"
+                Margin="0,0,20,0"
+                HorizontalOptions="End"
+                VerticalOptions="Center" />
+    </Grid>
+</ContentView>

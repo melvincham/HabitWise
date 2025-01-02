@@ -18,6 +18,13 @@ namespace HabitWise
                 throw;
             }
             BindingContext = _appShellPageModel = appShellPageModel;
+
+            Navigated += OnShellNavigated;
         }
+
+        private void OnShellNavigated(object sender, ShellNavigatedEventArgs args)
+        {
+            _appShellPageModel.PageTitle = Current.CurrentPage.Title ?? "HabitWise";
+        }   
     }
 }
