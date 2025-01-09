@@ -1,9 +1,4 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HabitWise.Models
 {
@@ -26,8 +21,6 @@ namespace HabitWise.Models
 
         public DateTime? EndDate { get; set; }
 
-        public RecurrenceType Recurrence { get; set; }
-
         public TimeSpan? ReminderTime { get; set; }
 
         public bool IsCompleted { get; set; }
@@ -35,5 +28,14 @@ namespace HabitWise.Models
         public DateTime DateCompleted { get; set; }
 
         public string Tags { get; set; }
+
+        [Ignore]
+        public RecurrenceRule Recurrence { get; set; }
+
+        public string RecurrenceJson 
+        {
+            get => Recurrence == null ? null : System.Text.Json.JsonSerializer.Serialize(Recurrence);
+            set => Recurrence = System.Text.Json.JsonSerializer.Deserialize<RecurrenceRule>(value);
+        }
     }
 }
