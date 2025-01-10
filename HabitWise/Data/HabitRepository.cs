@@ -28,7 +28,7 @@ namespace HabitWise.Data
         public async Task<List<Habit>> GetHabitsAsync()
         {
             await Init();
-            var Habits =  await _db.Table<Habit>().ToListAsync();
+            var Habits = await _db.Table<Habit>().ToListAsync();
 
             foreach (var habit in Habits)
             {
@@ -79,6 +79,11 @@ namespace HabitWise.Data
         public async Task<int> RemoveTagFromHabitAsync(int habitId, int tagId)
         {
             return await _tagRepository.RemoveTagFromHabitAsync(habitId, tagId);
+        }
+
+        public async Task<int> RemoveAllTagsFromHabitAsync(int habitId)
+        {
+            return await _tagRepository.RemoveAllTagsFromHabitAsync(habitId);
         }
     }
 }

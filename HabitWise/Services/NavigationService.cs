@@ -24,7 +24,7 @@ namespace HabitWise.Services
                 : Shell.Current.GoToAsync(shellNavigation);
         }
 
-        public Task PopAsync()
+        public Task GoBackAsync()
         {
             return Shell.Current.GoToAsync("..");
         }

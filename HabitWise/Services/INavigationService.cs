@@ -12,6 +12,6 @@ namespace HabitWise.Services
 
         public Task GoToAsync(string page, bool animate = true, IDictionary<string, object> routeParameters = null);
 
-        Task PopAsync();
+        Task GoBackAsync();
     }
 }

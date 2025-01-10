@@ -59,5 +59,10 @@ namespace HabitWise.Data
         {
             return await _db.ExecuteAsync("DELETE FROM HabitTag WHERE HabitId = ? AND TagId = ?", habitId, tagId);
         }
+
+        public async Task<int> RemoveAllTagsFromHabitAsync(int habitId)
+        {
+            return await _db.ExecuteAsync("DELETE FROM HabitTag WHERE HabitId = ?", habitId);
+        }
     }
 }
