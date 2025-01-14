@@ -1,25 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:controls="clr-namespace:HabitWise.Controls"
              x:Class="HabitWise.Pages.MainPage"
              Title="Dashboard">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Margin="10,10" Spacing="15">
+                <Border WidthRequest="370" 
+                HeightRequest="250" 
+                StrokeShape="{StaticResource DefaultRoundedRectangle}"
+                BackgroundColor="{DynamicResource SurfaceColor}">
 
-    <ScrollView>
-        <VerticalStackLayout Margin="10,10" Spacing="15">
-            <Border WidthRequest="370" 
-                    HeightRequest="250" 
-                    StrokeShape="{StaticResource DefaultRoundedRectangle}"
-                    BackgroundColor="{DynamicResource SurfaceColor}">
-                
-            </Border>
-            <Border WidthRequest="370" 
-                    HeightRequest="100" 
-                    StrokeShape="{StaticResource DefaultRoundedRectangle}"
-                    BackgroundColor="{DynamicResource SurfaceColor}">
-            </Border>
-            
-        </VerticalStackLayout>
-    </ScrollView>
-
+                </Border>
+                <Border WidthRequest="370" 
+                HeightRequest="100" 
+                StrokeShape="{StaticResource DefaultRoundedRectangle}"
+                BackgroundColor="{DynamicResource SurfaceColor}">
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+        <controls:AddButton 
+            IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+            Command="{Binding AddButtonCommand}" />
+    </Grid>
 </ContentPage>

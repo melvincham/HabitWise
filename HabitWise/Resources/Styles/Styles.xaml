@@ -91,6 +91,10 @@
         Glyph="{x:Static f:FluentUI.row_triple_24_regular}"
         FontFamily="{x:Static f:FluentUI.FontFamily}"
         Color="{DynamicResource OnPrimaryColor}"/>
+    <FontImageSource x:Key="IconAdd"
+        Glyph="{x:Static f:FluentUI.add_24_regular}"
+        FontFamily="{x:Static f:FluentUI.FontFamily}"
+        Color="{DynamicResource OnPrimaryColor}"/>
 
     <!-- Styles -->
     <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
