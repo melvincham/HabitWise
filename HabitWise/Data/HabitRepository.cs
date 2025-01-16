@@ -1,5 +1,6 @@
 ﻿
 using HabitWise.Models;
+using HabitWise.Services;
 using SQLite;
 using System.Text.Json;
 
@@ -10,10 +11,12 @@ namespace HabitWise.Data
         private SQLiteAsyncConnection _db;
         private readonly TagRepository _tagRepository;
 
-        public HabitRepository()
+        public HabitRepository(ConnectionService connectionService, TagRepository tagRepository)
         {
+            
+            _tagRepository = tagRepository;
+            _db = connectionService._db;
             Init().Wait();
-            _tagRepository = new TagRepository(_db);
         }
 
         async Task Init()
@@ -21,7 +24,6 @@ namespace HabitWise.Data
             if (_db is not null)
                 return;
 
-            _db = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
             await _db.CreateTableAsync<Habit>();
         }
 

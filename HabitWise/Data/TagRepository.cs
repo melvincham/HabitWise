@@ -1,4 +1,5 @@
 ﻿using HabitWise.Models;
+using HabitWise.Services;
 using SQLite;
 
 namespace HabitWise.Data
@@ -7,9 +8,9 @@ namespace HabitWise.Data
     {
         private readonly SQLiteAsyncConnection _db;
 
-        public TagRepository(SQLiteAsyncConnection db)
+        public TagRepository(ConnectionService connectionService)
         {
-            _db = db;
+            _db = connectionService._db;
             _db.CreateTableAsync<Tag>().Wait();
             _db.CreateTableAsync<HabitTag>().Wait();
         }
