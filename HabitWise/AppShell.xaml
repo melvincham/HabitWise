@@ -15,7 +15,7 @@
     UnselectedColor="{DynamicResource OnBackgroundColor}"
     >
 
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="Dashboard">
         <ShellContent
             x:Name="MainItem"
             Title="Dashboard"
@@ -58,12 +58,22 @@
          Shell.FlyoutBehavior="Disabled"
          Shell.NavBarIsVisible="False"
          FlyoutItemIsVisible="False"/>
+    <ShellContent 
+         x:Name="HabitDetailItem"
+         Title="Habit Detail" 
+         Route="HabitDetailPage" 
+         ContentTemplate="{DataTemplate pages:HabitDetailPage}" 
+         Shell.FlyoutBehavior="Disabled"
+         Shell.NavBarIsVisible="False"
+         FlyoutItemIsVisible="False"/>
 
-    <MenuItem Text="Settings"
-              IconImageSource="{StaticResource IconSettings}"/>
-    <MenuItem Text="About"
-              IconImageSource="{StaticResource IconAbout}"/>
-    
+    <FlyoutItem Title="Settings" Icon="{StaticResource IconSettings}">
+        <ShellContent ContentTemplate="{DataTemplate pages:MainPage}" Route="SettingsPage"/>
+    </FlyoutItem>
+    <FlyoutItem Title="About" Icon="{StaticResource IconAbout}">
+        <ShellContent ContentTemplate="{DataTemplate pages:MainPage}" Route="AboutPage"/>
+    </FlyoutItem>
+
     <Shell.TitleView>
         <controls:TittleView x:Name="TitleView"/>
     </Shell.TitleView>

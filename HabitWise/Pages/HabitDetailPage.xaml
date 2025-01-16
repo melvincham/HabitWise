@@ -2,11 +2,43 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HabitWise.Pages.HabitDetailPage"
-             Title="HabitDetailPage">
+             Title="Habit Detail">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Grid Padding="5"
+              BackgroundColor="{DynamicResource SurfaceColor}"
+              ColumnDefinitions="60,*,60">
+            <ImageButton 
+                Grid.Column="0"
+                x:Name="BackButton"
+                Source="{StaticResource IconBack}" 
+                Command="{Binding CancelAsyncCommand}" 
+                BackgroundColor="Transparent"
+                WidthRequest="40" 
+                HeightRequest="40"
+                Margin="0,0,20,0"/>
+
+            <Label 
+                Grid.Column="1"
+                x:Name="Title"
+                Text="{Binding PageTitle}" 
+                FontSize="20" 
+                FontAttributes="Bold" 
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Center"
+                TextColor="{DynamicResource SecondaryColor}" />
+
+            <ImageButton 
+                Grid.Column="2"
+                x:Name="SaveButton"
+                Source="{StaticResource IconSave}" 
+                Command="{Binding SaveHabitAsyncCommand}" 
+                BackgroundColor="Transparent"
+                WidthRequest="40" 
+                HeightRequest="40"
+                Margin="20,0,0,0"
+                HorizontalOptions="End"
+                VerticalOptions="Center" />
+
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

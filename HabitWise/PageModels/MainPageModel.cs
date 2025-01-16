@@ -1,5 +1,6 @@
 ﻿
 using CommunityToolkit.Mvvm.Input;
+using HabitWise.Pages;
 using HabitWise.Services;
 
 namespace HabitWise.PageModels
@@ -17,7 +18,7 @@ namespace HabitWise.PageModels
         {
             await RunWithBusyIndicator(async () =>
             {
-                await _navigationService.GoToAsync("HabitDetailPage");
+                await _navigationService.GoToAsync($"///{nameof(HabitDetailPage)}");
             });
         }
 

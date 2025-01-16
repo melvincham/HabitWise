@@ -94,6 +94,14 @@
     <FontImageSource x:Key="IconAdd"
         Glyph="{x:Static f:FluentUI.add_24_regular}"
         FontFamily="{x:Static f:FluentUI.FontFamily}"
+        Color="{DynamicResource OnSecondaryColor}"/>
+    <FontImageSource x:Key="IconBack"
+        Glyph="{x:Static f:FluentUI.ios_arrow_ltr_24_regular}"
+        FontFamily="{x:Static f:FluentUI.FontFamily}"
+        Color="{DynamicResource OnPrimaryColor}"/>
+    <FontImageSource x:Key="IconSave"
+        Glyph="{x:Static f:FluentUI.save_24_regular}"
+        FontFamily="{x:Static f:FluentUI.FontFamily}"
         Color="{DynamicResource OnPrimaryColor}"/>
 
     <!-- Styles -->

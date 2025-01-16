@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Maui;
+using HabitWise.Data;
 using HabitWise.PageModels;
 using HabitWise.Pages;
 using HabitWise.Resources.Fonts;
 using HabitWise.Services;
 using Microsoft.Extensions.Logging;
+using SQLite;
 using Syncfusion.Maui.Toolkit.Hosting;
 
 namespace HabitWise
@@ -35,16 +37,22 @@ namespace HabitWise
             builder.Services.AddSingleton<INavigationService, NavigationService>();
             builder.Services.AddSingleton<IDailogService, DailogService>();
             builder.Services.AddSingleton<IErrorHandler, ModalErrorHandler>();
+            builder.Services.AddSingleton<HabitRepository>();
+            builder.Services.AddSingleton<TagRepository>();
+            builder.Services.AddSingleton<ConnectionService>();
 
             // Register PageModels
             builder.Services.AddTransient<SignInPageModel>();
             builder.Services.AddTransient<SignUpPageModel>();
+            builder.Services.AddTransient<MainPageModel>();
+            builder.Services.AddTransient<HabitDetailPageModel>();
             builder.Services.AddTransient<AppShellPageModel>();
 
             //Register Pages
             builder.Services.AddTransient<SignInPage>();
             builder.Services.AddTransient<SignUpPage>();
             builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<HabitDetailPage>();
             builder.Services.AddSingleton<AppShell>();
 
 

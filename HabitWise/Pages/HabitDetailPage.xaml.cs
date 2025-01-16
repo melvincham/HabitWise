@@ -1,9 +1,13 @@
+using HabitWise.PageModels;
+
 namespace HabitWise.Pages;
 
 public partial class HabitDetailPage : ContentPage
 {
-	public HabitDetailPage()
+	HabitDetailPageModel _habitDetailPageModel;
+	public HabitDetailPage(HabitDetailPageModel habitDetailPageModel)
 	{
 		InitializeComponent();
+		BindingContext = _habitDetailPageModel = habitDetailPageModel;
 	}
 }

@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using HabitWise.Data;
 using HabitWise.Models;
+using HabitWise.Pages;
 using HabitWise.Services;
 using System.Collections.ObjectModel;
 
