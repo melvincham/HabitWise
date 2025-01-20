@@ -44,14 +44,14 @@ namespace HabitWise
             // Register PageModels
             builder.Services.AddTransient<SignInPageModel>();
             builder.Services.AddTransient<SignUpPageModel>();
-            builder.Services.AddTransient<MainPageModel>();
+            builder.Services.AddSingleton<MainPageModel>();
             builder.Services.AddTransient<HabitDetailPageModel>();
-            builder.Services.AddTransient<AppShellPageModel>();
+            builder.Services.AddSingleton<AppShellPageModel>();
 
             //Register Pages
             builder.Services.AddTransient<SignInPage>();
             builder.Services.AddTransient<SignUpPage>();
-            builder.Services.AddTransient<MainPage>();
+            builder.Services.AddSingleton<MainPage>();
             builder.Services.AddTransient<HabitDetailPage>();
             builder.Services.AddSingleton<AppShell>();
 

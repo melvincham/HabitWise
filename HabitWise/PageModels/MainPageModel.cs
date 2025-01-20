@@ -14,7 +14,7 @@ namespace HabitWise.PageModels
         }
 
         [RelayCommand]
-        private async void AddButton()
+        private async Task AddButton()
         {
             await RunWithBusyIndicator(async () =>
             {

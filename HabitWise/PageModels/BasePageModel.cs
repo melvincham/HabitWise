@@ -34,7 +34,7 @@ namespace HabitWise.PageModels
                     IsBusy = true;
                     await action();
                 }
-                }
+            }
             finally
             {
                 IsBusy = false;

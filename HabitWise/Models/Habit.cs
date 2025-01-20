@@ -32,10 +32,52 @@ namespace HabitWise.Models
         [Ignore]
         public RecurrenceRule Recurrence { get; set; }
 
+        private byte[] _imojiData;
+        public byte[] ImojiData
+        {
+            get => _imojiData;
+            set
+            {
+                _imojiData = value;
+                _imoji = LoadImageFromBytes(value);
+            }
+        }
+
+        private ImageSource _imoji;
+        [Ignore]
+        public ImageSource Imoji
+        {
+            get => _imoji;
+            set
+            {
+                _imoji = value;
+                _imojiData = ConvertImageToByteArray(value);
+            }
+        }
+
         public string RecurrenceJson 
         {
             get => Recurrence == null ? null : System.Text.Json.JsonSerializer.Serialize(Recurrence);
             set => Recurrence = System.Text.Json.JsonSerializer.Deserialize<RecurrenceRule>(value);
+        }
+
+        private byte[] ConvertImageToByteArray(ImageSource imageSource)
+        {
+            if (imageSource is FileImageSource fileImageSource)
+            {
+                var path = fileImageSource.File;
+                if (File.Exists(path))
+                    return File.ReadAllBytes(path);
+            }
+            return null;
+        }
+
+        private ImageSource LoadImageFromBytes(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0)
+                return null;
+
+            return ImageSource.FromStream(() => new MemoryStream(imageData));
         }
     }
 }

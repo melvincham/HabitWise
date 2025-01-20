@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HabitWise.Pages.HabitDetailPage"
              Title="Habit Detail">
-    <VerticalStackLayout>
+    <VerticalStackLayout Margin="0,0,0,-50">
         <Grid Padding="5"
               BackgroundColor="{DynamicResource SurfaceColor}"
               ColumnDefinitions="60,*,60">
@@ -11,7 +11,7 @@
                 Grid.Column="0"
                 x:Name="BackButton"
                 Source="{StaticResource IconBack}" 
-                Command="{Binding CancelAsyncCommand}" 
+                Command="{Binding CancelCommand}" 
                 BackgroundColor="Transparent"
                 WidthRequest="40" 
                 HeightRequest="40"
@@ -31,14 +31,39 @@
                 Grid.Column="2"
                 x:Name="SaveButton"
                 Source="{StaticResource IconSave}" 
-                Command="{Binding SaveHabitAsyncCommand}" 
+                Command="{Binding SaveHabitCommand}" 
                 BackgroundColor="Transparent"
                 WidthRequest="40" 
                 HeightRequest="40"
                 Margin="20,0,0,0"
                 HorizontalOptions="End"
                 VerticalOptions="Center" />
-
         </Grid>
+
+        <Border 
+            StrokeShape="RoundRectangle 5"
+            Margin="10"
+            BackgroundColor="{DynamicResource SurfaceColor}"
+            >
+
+            <VerticalStackLayout Margin="10" Spacing="5">
+                <Grid  RowDefinitions="auto, auto" ColumnDefinitions="75, auto">
+                    <ImageButton
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Source="{Binding Habit.Imoji}"
+                        BackgroundColor="White"
+                        WidthRequest="70"
+                        HeightRequest="85"/>
+                </Grid>
+                <HorizontalStackLayout >
+                    <Label Text="Color"/>
+                    <ScrollView Orientation="Horizontal">
+                        
+                    </ScrollView>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
     </VerticalStackLayout>
 </ContentPage>

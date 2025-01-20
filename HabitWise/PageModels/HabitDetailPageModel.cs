@@ -5,6 +5,7 @@ using HabitWise.Models;
 using HabitWise.Pages;
 using HabitWise.Services;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 
 namespace HabitWise.PageModels
@@ -50,6 +51,10 @@ namespace HabitWise.PageModels
             if (habitId == null)
             {
                 Habit = new Habit();
+                if (Application.Current.Resources.TryGetValue("IconAdd", out var iconResource) && iconResource is FontImageSource fontImageSource)
+                {
+                    Habit.Imoji = fontImageSource;
+                }
                 IsNewHabit = true;
                 PageTitle = "New Habit";
                 SelectedTags = new ObservableCollection<Tag>();
@@ -80,7 +85,7 @@ namespace HabitWise.PageModels
         }
 
         [RelayCommand]
-        private async Task SaveHabitAsync()
+        private async Task SaveHabit()
         {
             await RunWithBusyIndicator( async () =>
             {
@@ -113,7 +118,7 @@ namespace HabitWise.PageModels
         }
 
         [RelayCommand]
-        private async Task DeleteHabitAsync()
+        private async Task DeleteHabit()
         {
             await RunWithBusyIndicator(async () =>
             {
@@ -131,9 +136,12 @@ namespace HabitWise.PageModels
         }
 
         [RelayCommand]
-        private async Task CancelAsync()
+        private async Task Cancel()
         {
-            await _navigationService.GoBackAsync();
+            await RunWithBusyIndicator(async () =>
+            {
+                await _navigationService.GoToAsync($"///Dashboard");
+            });
         }
     }
 }

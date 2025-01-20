@@ -1,4 +1,5 @@
 ﻿using HabitWise.PageModels;
+using HabitWise.Pages;
 
 namespace HabitWise
 {
@@ -26,5 +27,10 @@ namespace HabitWise
         {
             _appShellPageModel.PageTitle = Current.CurrentPage.Title ?? "HabitWise";
         }   
+
+        private static void InitializeRouting()
+        {
+            Routing.RegisterRoute("HabitDetailPage", typeof(HabitDetailPage));
+        }
     }
 }
