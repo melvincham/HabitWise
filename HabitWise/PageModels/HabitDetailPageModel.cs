@@ -46,6 +46,8 @@ namespace HabitWise.PageModels
         [ObservableProperty]
         bool isNewHabit;
 
+        
+
         public async Task InitializeAsync(int? habitId = null)
         {
             if (habitId == null)

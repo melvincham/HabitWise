@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters="clr-namespace:HabitWise.Converters"
+             xmlns:behaviors="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
+             xmlns:sfTextInput="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
              x:Class="HabitWise.Pages.HabitDetailPage"
              Title="Habit Detail">
-    <VerticalStackLayout Margin="0,0,0,-50">
+    <VerticalStackLayout >
         <Grid Padding="5"
               BackgroundColor="{DynamicResource SurfaceColor}"
               ColumnDefinitions="60,*,60">
@@ -47,21 +51,40 @@
             >
 
             <VerticalStackLayout Margin="10" Spacing="5">
-                <Grid  RowDefinitions="auto, auto" ColumnDefinitions="75, auto">
+                <Grid   ColumnDefinitions="75, *">
                     <ImageButton
                         Grid.Column="0"
-                        Grid.Row="0"
-                        Grid.RowSpan="2"
                         Source="{Binding Habit.Imoji}"
                         BackgroundColor="White"
                         WidthRequest="70"
                         HeightRequest="85"/>
+                    <VerticalStackLayout  Grid.Column="1"
+                                          HorizontalOptions="FillAndExpand">
+                        <Entry Style="{StaticResource TextEntryStyle}" 
+                               Text="{Binding Habit.Name}"
+                               Placeholder="Name"/>
+                        <Entry Style="{StaticResource TextEntryStyle}" 
+                               Text="{Binding Habit.Description}"
+                               Placeholder="Description"/>
+                    </VerticalStackLayout>
                 </Grid>
                 <HorizontalStackLayout >
-                    <Label Text="Color"/>
-                    <ScrollView Orientation="Horizontal">
+                    <Label Text="Tag" WidthRequest="75" HorizontalTextAlignment="Center"/>
+                    <ScrollView Orientation="Horizontal" Margin="10,0" HorizontalOptions="FillAndExpand">
                         
                     </ScrollView>
+                    <Border 
+                        StrokeShape="RoundRectangle 20"
+                        Margin="10"
+                        BackgroundColor="{DynamicResource BackgroundColor}"
+                        HorizontalOptions="End">
+                        <ImageButton
+                            Grid.Column="0"
+                            Source="{StaticResource IconAdd}"
+                            BackgroundColor="White"
+                            WidthRequest="40"
+                            HeightRequest="25"/>
+                    </Border>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Border>
