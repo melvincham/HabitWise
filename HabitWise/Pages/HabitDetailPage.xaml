@@ -3,10 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters="clr-namespace:HabitWise.Converters"
+             xmlns:models="clr-namespace:HabitWise.Models"
+             xmlns:pageModels="clr-namespace:HabitWise.PageModels"
              xmlns:behaviors="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
              xmlns:sfTextInput="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
              x:Class="HabitWise.Pages.HabitDetailPage"
              Title="Habit Detail">
+    <ContentPage.Resources>
+        <DataTemplate x:Key="NormalTagTemplate" x:DataType="models:Tag">
+            <Border StrokeShape="RoundRectangle 22" 
+                HeightRequest="30" 
+                StrokeThickness="0"
+                Background="{DynamicResource SurfaceColor}" 
+                Padding="0,10">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleTagSelectionCommand, Source={RelativeSource AncestorType={x:Type pageModels:HabitDetailPageModel}}, x:DataType=pageModels:HabitDetailPageModel}" CommandParameter="{Binding .}"/>
+                </Border.GestureRecognizers>
+                <Label Text="{Binding Title}"
+                    Style="{StaticResource LabelStyle}" 
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center"/>    
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="SelectedTagTemplate" x:DataType="models:Tag">
+            <Border StrokeShape="RoundRectangle 22" 
+                HeightRequest="30" 
+                StrokeThickness="0"
+                Background="{Binding DisplayColor}" 
+                Padding="0,10"> 
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleTagSelectionCommand, Source={RelativeSource AncestorType={x:Type pageModels:HabitDetailPageModel}}, x:DataType=pageModels:HabitDetailPageModel}" CommandParameter="{Binding .}"/>
+                </Border.GestureRecognizers>
+                <Label Text="{Binding Title}"
+                    Style="{StaticResource LabelStyle}" 
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center"/>
+            </Border>
+        </DataTemplate>
+    </ContentPage.Resources>
+    
     <VerticalStackLayout >
         <Grid Padding="5"
               BackgroundColor="{DynamicResource SurfaceColor}"
@@ -24,12 +59,10 @@
             <Label 
                 Grid.Column="1"
                 x:Name="Title"
+                Style="{StaticResource TitleLabelStyle}"
                 Text="{Binding PageTitle}" 
-                FontSize="20" 
-                FontAttributes="Bold" 
                 HorizontalOptions="CenterAndExpand"
-                VerticalOptions="Center"
-                TextColor="{DynamicResource SecondaryColor}" />
+                VerticalOptions="Center"/>
 
             <ImageButton 
                 Grid.Column="2"
@@ -47,10 +80,11 @@
         <Border 
             StrokeShape="RoundRectangle 5"
             Margin="10"
+            Padding="5"
             BackgroundColor="{DynamicResource SurfaceColor}"
             >
 
-            <VerticalStackLayout Margin="10" Spacing="5">
+            <VerticalStackLayout  Spacing="5">
                 <Grid   ColumnDefinitions="75, *">
                     <ImageButton
                         Grid.Column="0"
@@ -68,14 +102,24 @@
                                Placeholder="Description"/>
                     </VerticalStackLayout>
                 </Grid>
-                <HorizontalStackLayout >
-                    <Label Text="Tag" WidthRequest="75" HorizontalTextAlignment="Center"/>
-                    <ScrollView Orientation="Horizontal" Margin="10,0" HorizontalOptions="FillAndExpand">
+                <Grid ColumnDefinitions="75, *, auto">
+                    <Label 
+                        Grid.Column="0"
+                        Text="Tag" 
+                        Style="{StaticResource BoldLabelStyle}"  
+                        HorizontalTextAlignment="Center" 
+                        VerticalOptions="Center"/>
+                    <ScrollView 
+                        Grid.Column="1"
+                        Orientation="Horizontal" 
+                        Margin="10,0" 
+                        HorizontalOptions="FillAndExpand">
                         
                     </ScrollView>
-                    <Border 
+                    <Border
+                        Grid.Column="2"
                         StrokeShape="RoundRectangle 20"
-                        Margin="10"
+                        Margin="5"
                         BackgroundColor="{DynamicResource BackgroundColor}"
                         HorizontalOptions="End">
                         <ImageButton
@@ -83,9 +127,9 @@
                             Source="{StaticResource IconAdd}"
                             BackgroundColor="White"
                             WidthRequest="40"
-                            HeightRequest="25"/>
+                            HeightRequest="30"/>
                     </Border>
-                </HorizontalStackLayout>
+                </Grid>
             </VerticalStackLayout>
         </Border>
     </VerticalStackLayout>

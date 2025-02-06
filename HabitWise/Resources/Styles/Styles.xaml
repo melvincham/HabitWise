@@ -139,7 +139,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="EntryStyle" TargetType="{x:Type Entry}">
+    <Style x:Key="EntryStyle" TargetType="Entry">
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="TextColor" Value="{DynamicResource OnBackgroundColor}" />
@@ -169,7 +169,7 @@
         <Setter Property="Keyboard" Value="Default"/>
     </Style>
 
-    <sf:LabelStyle x:Key="LabelStyle" TextColor="{DynamicResource OnBackgroundColor}" FontSize="{StaticResource size200}" />
+    <sf:LabelStyle x:Key="SFLabelStyle" TextColor="{DynamicResource OnBackgroundColor}" FontSize="{StaticResource size200}" />
     <sf:LabelStyle x:Key="ErrorLabelStyle" TextColor="{StaticResource ErrorTextColor}" FontSize="{StaticResource size160}"/>
     <sf:LabelStyle x:Key="HelperLabelStyle" TextColor="{DynamicResource OnBackgroundColor}" FontSize="{StaticResource size160}" />
     <Style TargetType="sf:SfTextInputLayout">
@@ -177,7 +177,7 @@
         <Setter Property="OutlineCornerRadius" Value="15"/>
         <Setter Property="ContainerBackground" Value="Transparent"/>
         <Setter Property="Stroke" Value="{DynamicResource SurfaceColor}"/>
-        <Setter Property="HintLabelStyle" Value="{StaticResource LabelStyle}"/>
+        <Setter Property="HintLabelStyle" Value="{StaticResource SFLabelStyle}"/>
         <Setter Property="ErrorLabelStyle" Value="{StaticResource ErrorLabelStyle}"/>
         <Setter Property="HelperLabelStyle" Value="{StaticResource HelperLabelStyle}"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -203,7 +203,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Label">
+    <Style x:Key="LabelStyle"  TargetType="Label">
         <Setter Property="TextColor" Value="{DynamicResource OnBackgroundColor}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
@@ -220,6 +220,17 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+    </Style>
+
+    <Style x:Key="TitleLabelStyle" BasedOn="{StaticResource LabelStyle}" TargetType="Label">
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryColor}" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="BoldLabelStyle" BasedOn="{StaticResource LabelStyle}" TargetType="Label">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontAttributes" Value="Bold" />
     </Style>
 
     <Style ApplyToDerivedTypes="True"

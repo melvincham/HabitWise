@@ -44,6 +44,7 @@ namespace HabitWise.Models
         }
 
         private ImageSource _imoji;
+
         [Ignore]
         public ImageSource Imoji
         {

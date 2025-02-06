@@ -35,10 +35,7 @@ namespace HabitWise.PageModels
         private Habit habit;
 
         [ObservableProperty]
-        private ObservableCollection<Tag> availableTags;
-
-        [ObservableProperty]
-        private ObservableCollection<Tag> selectedTags;
+        private ObservableCollection<Tag> allTags;
 
         [ObservableProperty]
         string pageTitle;
@@ -59,31 +56,42 @@ namespace HabitWise.PageModels
                 }
                 IsNewHabit = true;
                 PageTitle = "New Habit";
-                SelectedTags = new ObservableCollection<Tag>();
             }
             else
             {
                 Habit = await _habitRepository.GetHabitAsync(habitId.Value);
                 IsNewHabit = false;
                 PageTitle = "Edit Habit";
-                SelectedTags = new ObservableCollection<Tag>(await _habitRepository.GetTagsForHabitAsync(habitId.Value));
+                
             }
-            AvailableTags = new ObservableCollection<Tag>(await _tagRepository.GetAllTagsAsync());   
+            AllTags = new ObservableCollection<Tag>(await _tagRepository.GetAllTagsAsync());   
+        }
+
+        private async Task LoadData(int id)
+        {
+            try
+            {
+                await RunWithBusyIndicator(async () =>
+                {
+                    Habit = await _habitRepository.GetHabitAsync(id);
+                    AllTags = new ObservableCollection<Tag>(await _tagRepository.GetAllTagsAsync());
+
+                    foreach (var tag in AllTags)
+                    {
+                        tag.IsSelected = Habit?.Tags.Any(t => t.Id == tag.Id);
+                    }
+                });
+            }
+            catch (Exception ex) 
+            {
+                _errorHandler.HandleError(ex);
+            }
         }
 
         [RelayCommand]
         private void ToggleTagSelection(Tag tag)
         {
-            if (SelectedTags.Contains(tag))
-            {
-                SelectedTags.Remove(tag);
-                AvailableTags.Add(tag);
-            }
-            else
-            {
-                SelectedTags.Add(tag);
-                AvailableTags.Remove(tag);
-            }
+            tag.IsSelected = !tag.IsSelected;
         }
 
         [RelayCommand]
@@ -92,19 +100,29 @@ namespace HabitWise.PageModels
             await RunWithBusyIndicator( async () =>
             {
 
-                if (SelectedTags.Count == 0)
+                if (allTags.Any(t => t.IsSelected == true))
                 {
                     await _dailogService.DisplayAlertAsync("Error", "Please select at least one tag", "OK");
+                    return;
+                }
+                if (Habit is null)
+                {
+                    _errorHandler.HandleError(
+                        new Exception("Habit is null. Cannot Save."));
+
                     return;
                 }
 
                 try
                 {
                     await _habitRepository.RemoveAllTagsFromHabitAsync(Habit.Id);
-                    foreach (var tag in SelectedTags)
+                    foreach (var tag in AllTags)
                     {
                         await _tagRepository.SaveTagAsync(tag);
-                        await _habitRepository.AddTagToHabitAsync(Habit.Id, tag.Id);
+                        if (tag.IsSelected) 
+                        {
+                            await _habitRepository.AddTagToHabitAsync(Habit.Id, tag.Id);
+                        } 
                     }
 
                     await _habitRepository.SaveHabitAsync(Habit);
